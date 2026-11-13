@@ -1,0 +1,63 @@
+# Turns a pushed build into a release.
+#
+# The build server (and scripts/github-release.mjs in the app's repo) pushes a branch named
+# upload/v<version> whose upload/ folder holds the built files and their latest.json. This
+# checks every file against the manifest, publishes them as release v<version>, and deletes
+# the branch. The release is made as a draft and published only once every file is on it,
+# so "latest" never points at a release with files missing.
+name: Release
+
+on:
+  push:
+    branches: ['upload/v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the files against the manifest
+        working-directory: upload
+        run: |
+          tag="${GITHUB_REF_NAME#upload/}"
+          version="$(jq -er .version latest.json)"
+          if [ "v$version" != "$tag" ]; then
+            echo "::error::latest.json says $version but the branch is $GITHUB_REF_NAME"; exit 1
+          fi
+          # Every file the manifest lists must be here, be the listed size, and hash to the listed sum.
+          jq -r '[.. | objects | select(has("sha256"))] | .[] | "\(.sha256)  \(.url | split("/") | last)"' latest.json > sums.txt
+          test -s sums.txt
+          sha256sum -c sums.txt
+          # And every url must be this release's own.
+          jq -er --arg base "https://github.com/$GITHUB_REPOSITORY/releases/download/$tag/" \
+            '[.. | objects | select(has("sha256")) | .url | startswith($base)] | all' latest.json > /dev/null \
+            || { echo "::error::a url in latest.json does not point at $tag"; exit 1; }
+          rm sums.txt
+          jq -r '.notes // ""' latest.json > ../notes.txt
+          echo "tag=$tag" >> "$GITHUB_ENV"
+          echo "version=$version" >> "$GITHUB_ENV"
+
+      - name: Publish the release
+        working-directory: upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            # A re-run of the same version: put the files there again.
+            gh release upload "$tag" --repo "$GITHUB_REPOSITORY" --clobber ./*
+            gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --notes-file ../notes.txt --draft=false --latest
+          else
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target main \
+              --title "stream-thing $version" --notes-file ../notes.txt --latest ./*
+          fi
+
+      - name: Delete the upload branch
+        run: git push origin --delete "$GITHUB_REF_NAME"

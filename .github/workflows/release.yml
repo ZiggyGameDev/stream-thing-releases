@@ -45,6 +45,37 @@ jobs:
           echo "tag=$tag" >> "$GITHUB_ENV"
           echo "version=$version" >> "$GITHUB_ENV"
 
+      # A Samsung TV running the app through TizenBrew opens it as a page of the website
+      # (samsung/, sent there by tizenbrew/index.html) and runs samsung/service/tizenbrew.js
+      # beside it: both named by package.json, which is what TizenBrew reads. So the Samsung
+      # build is unpacked onto main, before the release is made: TizenBrew takes
+      # package.json and the service from the newest release's tag, which then has them.
+      - name: Put the Samsung build on the website
+        run: |
+          wgt="$GITHUB_WORKSPACE/upload/stream-thing-samsung-tv.wgt"
+          if [ ! -f "$wgt" ] || ! unzip -l "$wgt" | grep -q ' service/tizenbrew.js$'; then
+            echo "::warning::this version has no Samsung build made for TizenBrew: the website keeps the one it has"
+            exit 0
+          fi
+          git fetch -q --depth 1 origin main
+          git worktree add -q "$RUNNER_TEMP/site" FETCH_HEAD
+          cd "$RUNNER_TEMP/site"
+          rm -rf samsung
+          unzip -q "$wgt" -d samsung
+          # What only a TV installing the package itself reads.
+          rm -f samsung/config.xml samsung/*signature*.xml samsung/service/torrent-service.js
+          test -f samsung/index.html
+          jq --arg v "$version" '.version = $v' package.json > package.json.new
+          mv package.json.new package.json
+          git add -A samsung package.json
+          if git diff --cached --quiet; then
+            echo "the website already has this build"
+            exit 0
+          fi
+          git -c user.name="stream-thing build" -c user.email="build@stream-thing.invalid" \
+            commit -q -m "The Samsung build of stream-thing $version, for TVs running it through TizenBrew"
+          git push -q origin HEAD:main
+
       - name: Publish the release
         working-directory: upload
         env:

@@ -1,0 +1,21 @@
+{
+  "name": "stream-thing",
+  "version": "1.2.0",
+  "description": "stream-thing for Samsung TVs: a player for the Stremio addon protocol",
+  "packageType": "app",
+  "appName": "stream-thing",
+  "appPath": "tizenbrew/index.html",
+  "serviceFile": "samsung/service/tizenbrew.js",
+  "keys": [
+    "MediaPlayPause",
+    "MediaPlay",
+    "MediaPause",
+    "MediaRewind",
+    "MediaFastForward",
+    "MediaTrackPrevious",
+    "MediaTrackNext",
+    "ChannelUp",
+    "ChannelDown"
+  ],
+  "evaluateScriptOnDocumentStart": false
+}

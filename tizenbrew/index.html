@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>stream-thing</title>
+  <!--
+    What TizenBrew opens for the stream-thing module (package.json at the top of this repo).
+    The app itself is a page of this site, in samsung/, which each release puts there: this
+    only sends the TV on to it. The address carries the time, so a TV never opens a copy of
+    the page it kept from an earlier version.
+  -->
+  <style>
+    html, body { height: 100%; margin: 0; background: #110b0c; color: #f4ecec; font: 28px/1.5 Arial, sans-serif; }
+    body { display: flex; align-items: center; justify-content: center; text-align: center; }
+    a { color: #ff8a00; }
+  </style>
+</head>
+<body>
+  <p>Opening stream-thing…<br><a id="go" href="https://ziggygamedev.github.io/stream-thing-releases/samsung/index.html">Open it</a> if nothing happens.</p>
+  <script>
+    (function () {
+      var app = 'https://ziggygamedev.github.io/stream-thing-releases/samsung/index.html?t=' + new Date().getTime();
+      document.getElementById('go').href = app;
+      try { window.location.replace(app); } catch (e) { window.location.href = app; }
+    })();
+  </script>
+</body>
+</html>

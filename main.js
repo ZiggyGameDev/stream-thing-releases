@@ -116,3 +116,21 @@
   const address = `${location.host}${location.pathname.replace(/[^/]*$/, '')}tv`;
   for (const el of document.querySelectorAll('[data-tv-address]')) el.textContent = address;
 })();
+
+// Copying a name to type elsewhere (the Samsung module's): the button says so for a moment.
+(() => {
+  for (const button of document.querySelectorAll('[data-copy]')) {
+    const label = button.querySelector('span') ?? button;
+    const usual = label.textContent;
+    button.addEventListener('click', async () => {
+      const text = document.getElementById(button.dataset.copy)?.textContent.trim() ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        label.textContent = 'Copied';
+      } catch {
+        label.textContent = 'Select the name and copy it';
+      }
+      setTimeout(() => (label.textContent = usual), 2000);
+    });
+  }
+})();

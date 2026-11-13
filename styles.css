@@ -72,20 +72,36 @@ section { width: min(var(--wide), calc(100% - 40px)); margin: 0 auto; }
 /* A download the newest release doesn't have. */
 .btn.off { background: rgba(255, 255, 255, .07); color: var(--muted); box-shadow: none; pointer-events: none; }
 
-/* ---- download ---- */
-.download { padding-top: 70px; text-align: center; }
-.tablist { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 5px; margin: 26px 0 18px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); max-width: 100%; }
-.tablist button { padding: 11px 20px; border: 0; border-radius: 12px; cursor: pointer; background: none; color: var(--muted); font: 700 .95rem 'Manrope', system-ui, sans-serif; transition: color .2s, background .2s; }
-.tablist button:hover { color: var(--text); }
-.tablist button[aria-selected="true"] { background: var(--text); color: #170d0f; }
-html:not(.js) .tablist { display: none; }
-.panel {
-  margin: 0 auto 18px; padding: 40px; border-radius: 26px; border: 1px solid var(--line);
-  background: radial-gradient(120% 140% at 100% 0%, rgba(255, 45, 120, .13), transparent 55%), radial-gradient(90% 120% at 0% 100%, rgba(255, 138, 0, .09), transparent 60%), var(--panel);
+/* ---- download: one frame, the platforms across its top ---- */
+.download { padding-top: 70px; }
+.download h2 { text-align: center; }
+.dl {
+  margin-top: 30px; border-radius: 26px; border: 1px solid var(--line); overflow: hidden;
+  background: radial-gradient(120% 140% at 100% 0%, rgba(255, 45, 120, .12), transparent 55%), radial-gradient(90% 120% at 0% 100%, rgba(255, 138, 0, .08), transparent 60%), var(--panel);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, .45);
 }
+.tablist { display: flex; border-bottom: 1px solid var(--line); background: rgba(0, 0, 0, .22); }
+.tablist button {
+  flex: 1; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 19px 10px;
+  border: 0; cursor: pointer; background: none; color: var(--muted); font: 700 .95rem 'Manrope', system-ui, sans-serif; transition: color .2s, background .2s;
+}
+.tablist button + button { border-left: 1px solid var(--line); }
+.tablist button:hover { color: var(--text); }
+.tablist button[aria-selected="true"] { color: var(--text); background: rgba(255, 255, 255, .045); }
+.tablist button[aria-selected="true"] .ic { stroke: var(--orange); }
+.tablist button[aria-selected="true"]::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--grad); }
+.tablist button:focus-visible { outline-offset: -3px; }
+html:not(.js) .tablist { display: none; }
+html:not(.js) .panel + .panel { border-top: 1px solid var(--line); }
+.panel { padding: 40px 44px 44px; }
 .panel[hidden] { display: none; }
-.get { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.get small, .alt { color: #8b7d80; font-size: .84rem; }
+.head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 30px; }
+.head h3 { margin: 0; font: 700 clamp(1.6rem, 3vw, 2.1rem)/1.1 var(--display); letter-spacing: -.025em; }
+.head small { display: block; margin-top: 7px; color: #8b7d80; font-size: .86rem; }
+.head .name { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.btn.ghost { padding: 12px 20px; font-size: .95rem; background: rgba(255, 255, 255, .07); color: var(--text); border: 1px solid var(--line); }
+.btn.ghost:hover { background: rgba(255, 255, 255, .12); }
+.alt { color: #8b7d80; font-size: .84rem; }
 code { padding: 3px 8px; border-radius: 7px; background: #0d0809; border: 1px solid var(--line); color: var(--orange); font: 700 .88em ui-monospace, 'Cascadia Mono', Consolas, monospace; overflow-wrap: anywhere; }
 .module { padding: 12px 16px; font-size: 1rem; user-select: all; }
 /* How to install: a picture of each thing to tap, with what to do under it. */
@@ -116,8 +132,6 @@ code { padding: 3px 8px; border-radius: 7px; background: #0d0809; border: 1px so
 .store > div { flex: 1; min-width: 0; }
 .dicon { flex: none; width: 34px; height: 34px; border-radius: 9px; background: #f47b20; color: #fff; display: grid; place-items: center; font-size: 1.2rem; }
 .dicon.tb { background: #4f46e5; }
-.five .store > div { flex: 1 0 calc(100% - 44px); }
-.five .store .tap { margin-left: auto; }
 .store .tap, .url .tap { display: inline-block; padding: 5px 10px; border-radius: 999px; font-weight: 700; }
 .tvshot { border-radius: 10px; border-width: 5px; border-color: #241a1d; }
 .term { width: 100%; padding: 12px; border-radius: 10px; background: #050304; border: 1px solid #3a2b2f; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font: 600 .66rem/1.4 ui-monospace, 'Cascadia Mono', Consolas, monospace; color: #cdbfc2; }
@@ -128,10 +142,9 @@ code { padding: 3px 8px; border-radius: 7px; background: #0d0809; border: 1px so
 .shot .tap { color: #1a0b08; background: var(--grad); position: relative; }
 .shot .tap::before { content: ''; position: absolute; inset: -5px; border-radius: 999px; border: 2px solid var(--orange); animation: ring 1.8s ease-out infinite; }
 @keyframes ring { from { opacity: .9; transform: scale(.92); } to { opacity: 0; transform: scale(1.25); } }
-@media (min-width: 1101px) { .howto.five { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; } }
 @media (max-width: 900px) { .howto { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .howto { grid-template-columns: 1fr; } .shot { height: auto; min-height: 150px; } }
-.alt { margin-top: 22px; }
+.alt { margin-top: 26px; text-align: center; }
 
 /* ---- features: a line or two, then a picture of it as wide as the page ---- */
 .feature { padding-top: 120px; text-align: center; }
@@ -157,9 +170,12 @@ footer p { max-width: 560px; margin: 0 auto; color: #8b7d80; font-size: .84rem; 
   .stage { margin-top: 36px; padding-bottom: 40px; }
   .phone { width: 110px; border-radius: 20px; border-width: 3px; }
   .phone img { border-radius: 17px; }
-  .panel { padding: 26px 18px; border-radius: 20px; }
-  .tablist button { flex: 1 1 30%; padding: 10px 12px; }
-  .get .btn { width: 100%; white-space: normal; }
+  .dl { border-radius: 20px; }
+  .panel { padding: 26px 18px 30px; }
+  .tablist { flex-wrap: wrap; }
+  .tablist button { flex: 1 1 30%; padding: 14px 8px; font-size: .88rem; border-bottom: 1px solid var(--line); }
+  .tablist button .ic { display: none; }
+  .head .btn.solid { width: 100%; white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation: none !important; transition: none !important; }

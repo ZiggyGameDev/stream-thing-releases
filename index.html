@@ -11,7 +11,9 @@
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preload" href="assets/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+  <!-- ?v: raise it (here and on main.js below) whenever either file changes, so no browser
+       pairs this page with the copy it kept from before. -->
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <!--
   Downloads come straight from GitHub Releases. `data-repo` is the repository whose latest
@@ -49,43 +51,82 @@
 
       <article class="panel" role="tabpanel" id="panel-windows" aria-labelledby="tab-windows">
         <div class="get">
-          <a class="btn solid" data-download="windows"
-             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-windows.msi">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Windows</a>
+          <a class="btn solid" data-download="windows" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-windows.msi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Windows</a>
           <small data-meta="windows">Windows 10 or 11, 64-bit</small>
         </div>
-        <ol class="steps">
-          <li>Run the installer.</li>
-        </ol>
       </article>
 
       <article class="panel" role="tabpanel" id="panel-android" aria-labelledby="tab-android">
         <div class="get">
-          <a class="btn solid" data-download="android"
-             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android.apk">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android</a>
+          <a class="btn solid" data-download="android" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android.apk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android</a>
           <small data-meta="android">APK for phones and tablets</small>
         </div>
-        <ol class="steps">
-          <li>Download the file and open it.</li>
-          <li>When asked, allow your browser to install apps.</li>
-          <li>Tap <b>Install</b>.</li>
-          <li>If Play Protect blocks it, tap <b>More details</b>, then <b>Install anyway</b>.</li>
+        <ol class="howto">
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="dlg"><strong>File might be harmful</strong><p>Download stream-thing-android.apk anyway?</p>
+                <div class="acts"><span>Cancel</span><span class="tap">Download anyway</span></div></div>
+            </div>
+            <h5>Download the file and open it</h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="set"><small>Install unknown apps</small><strong>Chrome</strong>
+                <div class="toggle"><span>Allow from this source</span><i class="tap"></i></div></div>
+            </div>
+            <h5>Allow your browser to install apps</h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div><p>Do you want to install this app?</p>
+                <div class="acts"><span>Cancel</span><span class="tap">Install</span></div></div>
+            </div>
+            <h5>Tap Install</h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="dlg"><strong>Blocked by Play Protect</strong>
+                <div class="more"><span>More details</span><span class="tap">Install anyway</span></div>
+                <div class="acts"><span>OK</span></div></div>
+            </div>
+            <h5>If Play Protect blocks it: More details, then Install anyway</h5>
+          </li>
         </ol>
       </article>
 
       <article class="panel" role="tabpanel" id="panel-tv" aria-labelledby="tab-tv">
         <div class="get">
-          <a class="btn solid" data-download="tv"
-             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android-tv.apk">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android TV</a>
+          <a class="btn solid" data-download="tv" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android-tv.apk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android TV</a>
           <small data-meta="tv">APK for Android TV and Google TV</small>
         </div>
-        <ol class="steps">
-          <li>On the TV, install <b>Downloader</b> from the app store.</li>
-          <li>Open it and enter <code data-tv-address>this site's address, then /tv</code></li>
-          <li>When asked, allow Downloader to install apps.</li>
-          <li>Choose <b>Install</b>.</li>
+        <ol class="howto">
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="store"><i class="dicon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg></i>
+                <div><strong>Downloader</strong><small>AFTVnews</small></div><span class="tap">Install</span></div>
+            </div>
+            <h5>On the TV, install Downloader</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="url"><small>Enter a URL or search term</small><div class="field" data-tv-address>this site's address, then /tv</div><span class="tap">Go</span></div>
+            </div>
+            <h5>Open it and enter <code data-tv-address>this site's address, then /tv</code></h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="set"><small>Install unknown apps</small>
+                <div class="toggle"><span>Downloader</span><i class="tap"></i></div></div>
+            </div>
+            <h5>Allow Downloader to install apps</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div><p>Do you want to install this app?</p>
+                <div class="acts"><span>Cancel</span><span class="tap">Install</span></div></div>
+            </div>
+            <h5>Choose Install</h5>
+          </li>
         </ol>
       </article>
 
@@ -94,12 +135,41 @@
           <code class="module" id="samsung-module">ZiggyGameDev/stream-thing-releases</code>
           <button class="btn solid" type="button" data-copy="samsung-module"><span>Copy the module name</span></button>
         </div>
-        <ol class="steps">
-          <li>Install <a href="https://github.com/reisxd/TizenBrew/blob/main/docs/README.md" rel="noopener">TizenBrew</a> on the TV.</li>
-          <li>Open TizenBrew.</li>
-          <li>Press the green button, choose <b>Add GitHub Module</b> and enter <code>ZiggyGameDev/stream-thing-releases</code></li>
-          <li>Select <b>stream-thing</b> in the list.</li>
-          <li>Sign in.</li>
+        <ol class="howto five">
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="dlg"><strong>TizenBrew Installer</strong><p>Living room TV</p>
+                <div class="acts"><span class="tap">Install TizenBrew</span></div></div>
+            </div>
+            <h5>Install <a href="https://github.com/reisxd/TizenBrew/blob/main/docs/README.md" rel="noopener">TizenBrew</a> on the TV</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="store"><i class="dicon tb"><svg class="ic" viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 9h6v6H9z"/></svg></i>
+                <div><strong>TizenBrew</strong><small>Apps</small></div><span class="tap">Open</span></div>
+            </div>
+            <h5>Open TizenBrew</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="url"><small>Add GitHub Module</small><div class="field">ZiggyGameDev/stream-thing-releases</div><span class="tap">Done</span></div>
+            </div>
+            <h5>Press green, choose Add GitHub Module, enter the name above</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div>
+                <div class="acts"><span class="tap">Open</span></div></div>
+            </div>
+            <h5>Select stream-thing in the list</h5>
+          </li>
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="set"><small>Sign in with Google</small><strong>On your phone, enter</strong>
+                <div class="field">ABCD-EFGH</div></div>
+            </div>
+            <h5>Sign in</h5>
+          </li>
         </ol>
         <p class="alt">Or sign and install the
           <a data-download="samsung" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-samsung-tv.wgt">.wgt</a>
@@ -108,18 +178,36 @@
 
       <article class="panel" role="tabpanel" id="panel-lg" aria-labelledby="tab-lg">
         <div class="get">
-          <a class="btn solid" data-download="lg"
-             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-lg-tv.ipk">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for LG TV</a>
+          <a class="btn solid" data-download="lg" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-lg-tv.ipk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for LG TV</a>
           <small data-meta="lg">.ipk for LG webOS TVs</small>
         </div>
-        <ol class="steps">
-          <li>On the TV, install <b>Developer Mode</b> from the LG Content Store and sign in with an <a href="https://webostv.developer.lge.com" rel="noopener">LG developer account</a>.</li>
-          <li>Turn on <b>Dev Mode Status</b>, then <b>Key Server</b>.</li>
-          <li>On a computer with <a href="https://nodejs.org" rel="noopener">Node.js</a>, run <code>npm install -g @webos-tools/cli</code></li>
-          <li>Run <code>ares-setup-device</code> and add the TV as <b>tv</b>: the IP address the TV shows, port 9922, user prisoner.</li>
-          <li>Run <code>ares-novacom --device tv --getkey</code> and enter the passphrase the TV shows.</li>
-          <li>Run <code>ares-install --device tv stream-thing-lg-tv.ipk</code></li>
+        <ol class="howto">
+          <li>
+            <div class="shot tvshot" aria-hidden="true">
+              <div class="set"><small>Developer Mode</small>
+                <div class="toggle"><span>Dev Mode Status</span><i class="tap"></i></div>
+                <div class="toggle"><span>Key Server</span><i class="tap"></i></div></div>
+            </div>
+            <h5>On the TV, install Developer Mode, sign in with an <a href="https://webostv.developer.lge.com" rel="noopener">LG developer account</a>, turn on both switches</h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="term"><span>npm install -g @webos-tools/cli</span><span class="tap">added ares-install</span></div>
+            </div>
+            <h5>On a computer with <a href="https://nodejs.org" rel="noopener">Node.js</a>, run <code>npm install -g @webos-tools/cli</code></h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="term"><span>ares-setup-device</span><span>name: tv &nbsp;ip: 192.168.1.60</span><span>ares-novacom --device tv --getkey</span><span class="tap">passphrase: A1B2C3</span></div>
+            </div>
+            <h5>Run <code>ares-setup-device</code> (name tv, the TV's IP, port 9922, user prisoner), then <code>ares-novacom --device tv --getkey</code></h5>
+          </li>
+          <li>
+            <div class="shot" aria-hidden="true">
+              <div class="term"><span>ares-install --device tv stream-thing-lg-tv.ipk</span><span class="tap">Success</span></div>
+            </div>
+            <h5>Run <code>ares-install --device tv stream-thing-lg-tv.ipk</code></h5>
+          </li>
         </ol>
       </article>
     </section>
@@ -134,13 +222,21 @@
 
     <section class="feature flip">
       <div>
+        <h2>Watch party.</h2>
+        <p>Watch in step with friends, each on their own screen. Anyone can pick what's on, pause or skip.</p>
+      </div>
+      <img loading="lazy" src="assets/shots/desktop-party.webp" width="801" height="505" alt="The watch party panel on Windows: start a party, or join one with a code">
+    </section>
+
+    <section class="feature">
+      <div>
         <h2>Live channels.</h2>
         <p>Always-on channels, with something already playing when you sit down.</p>
       </div>
       <img loading="lazy" src="assets/shots/desktop-live.webp" width="1303" height="810" alt="The Live guide on Windows: eight always-on channels and what each is showing through the evening">
     </section>
 
-    <section class="feature">
+    <section class="feature flip">
       <div>
         <h2>My list.</h2>
         <p>Save what you want to watch, and see new episodes of your shows on the day they air.</p>
@@ -148,12 +244,22 @@
       <img loading="lazy" src="assets/shots/desktop-mylist.webp" width="1301" height="820" alt="My list on Windows: a calendar of the month with new episodes of saved shows on their days">
     </section>
 
-    <section class="feature flip tall">
+    <section class="feature tall">
       <div>
         <h2>It follows you.</h2>
         <p>Sign in with Google and your addons, your watch history and your place in every episode are on every screen.</p>
       </div>
       <img loading="lazy" src="assets/shots/phone-live.webp" width="720" height="1600" alt="The Live page on an Android phone">
+    </section>
+
+    <section class="quick">
+      <h2>And it also</h2>
+      <ul>
+        <li>Skips the credits</li>
+        <li>Picks the best source for you</li>
+        <li>Checks every source at once</li>
+        <li>Preloads the next episode</li>
+      </ul>
     </section>
   </main>
 
@@ -161,6 +267,6 @@
     <p>stream-thing is a media player. It does not host, store or provide any media; what it plays comes from addons you choose to install.</p>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js?v=4"></script>
 </body>
 </html>

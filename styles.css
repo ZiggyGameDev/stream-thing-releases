@@ -116,6 +116,8 @@ code { padding: 3px 8px; border-radius: 7px; background: #0d0809; border: 1px so
 .store > div { flex: 1; min-width: 0; }
 .dicon { flex: none; width: 34px; height: 34px; border-radius: 9px; background: #f47b20; color: #fff; display: grid; place-items: center; font-size: 1.2rem; }
 .dicon.tb { background: #4f46e5; }
+.five .store > div { flex: 1 0 calc(100% - 44px); }
+.five .store .tap { margin-left: auto; }
 .store .tap, .url .tap { display: inline-block; padding: 5px 10px; border-radius: 999px; font-weight: 700; }
 .tvshot { border-radius: 10px; border-width: 5px; border-color: #241a1d; }
 .term { width: 100%; padding: 12px; border-radius: 10px; background: #050304; border: 1px solid #3a2b2f; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font: 600 .66rem/1.4 ui-monospace, 'Cascadia Mono', Consolas, monospace; color: #cdbfc2; }

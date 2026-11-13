@@ -321,3 +321,23 @@ footer p { max-width: 560px; color: #8b7d80; font-size: .84rem; }
 .set .toggle + .toggle { margin-top: 6px; }
 .howto .addr { font-size: .78rem; }
 .howto li p a { color: var(--text); text-underline-offset: 3px; }
+
+/* ---- real screenshots ---- */
+.screen img, .phone img, .shots img { display: block; width: 100%; height: auto; }
+.phone { height: auto; padding: 0; background: #0d0809; }
+.phone img { border-radius: 28px; }
+.look { padding-top: 120px; }
+.shots { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .62fr); gap: 18px; align-items: start; }
+.shots figure { margin: 0; }
+.shots .wide { grid-column: span 2; }
+.shots .tall { grid-row: span 2; }
+.shots img { border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0, 0, 0, .55); }
+.shots .tall img { border-radius: 26px; border: 5px solid #2c2024; }
+.shots figcaption { margin-top: 12px; color: var(--muted); font-size: .92rem; }
+.shots figcaption b { color: var(--text); font-family: var(--display); font-weight: 650; margin-right: 6px; }
+@media (max-width: 900px) {
+  .shots { grid-template-columns: 1fr; }
+  .shots .wide, .shots .tall { grid-column: auto; grid-row: auto; }
+  .shots .tall { max-width: 300px; margin: 0 auto; }
+}
+@media (max-width: 600px) { .look { padding-top: 84px; } }

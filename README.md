@@ -9,9 +9,12 @@ The latest version, always at the same address:
 
 | | |
 |---|---|
-| Windows | https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-windows.exe |
+| Windows (installer) | https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-windows.msi |
 | Android phones and tablets | https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android.apk |
 | Android TV and Google TV | https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android-tv.apk |
+
+Each release also has `stream-thing-windows.exe`, the app without its installer. It is what
+an installed copy on Windows downloads to update itself, so it stays under that name.
 
 Installed copies update themselves from the same place: they read
 `releases/latest/download/latest.json`, which lists the newest version with the address,

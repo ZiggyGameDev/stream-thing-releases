@@ -6,7 +6,8 @@
 (() => {
   const repo = document.body.dataset.repo;
   const FILES = {
-    windows: { file: 'stream-thing-windows.exe', label: 'Download for Windows' },
+    // The installer. A release from before there was one has only the app itself (was).
+    windows: { file: 'stream-thing-windows.msi', was: 'stream-thing-windows.exe', label: 'Download for Windows' },
     android: { file: 'stream-thing-android.apk', label: 'Download for Android' },
     tv: { file: 'stream-thing-android-tv.apk', label: 'Download for Android TV' },
     samsung: { file: 'stream-thing-samsung-tv.wgt', label: 'Download for Samsung TV' },
@@ -14,7 +15,7 @@
   };
   // GitHub answers this with a redirect to the newest release's file, sent as an
   // attachment, so the browser downloads it and the page stays where it is.
-  const link = (kind) => `https://github.com/${repo}/releases/latest/download/${FILES[kind].file}`;
+  const link = (kind, file = FILES[kind].file) => `https://github.com/${repo}/releases/latest/download/${file}`;
 
   /** Which build suits this device, or null when there isn't one (iPhone, Mac, Linux). */
   function detect() {
@@ -84,9 +85,14 @@
         }
         for (const el of document.querySelectorAll('[data-version-plain]')) el.textContent = `Version ${version}`;
       }
-      for (const [kind, { file }] of Object.entries(FILES)) {
-        const asset = (release.assets || []).find((a) => a.name === file);
+      for (const [kind, { file, was }] of Object.entries(FILES)) {
+        let asset = (release.assets || []).find((a) => a.name === file);
         const el = document.querySelector(`[data-meta="${kind}"]`);
+        if (!asset && was) {
+          // The newest release is from before this file existed: its buttons give what it has.
+          asset = (release.assets || []).find((a) => a.name === was);
+          if (asset) for (const a of document.querySelectorAll('[data-download]')) if (a.href === link(kind)) a.href = link(kind, was);
+        }
         if (asset && el) el.textContent = [version && `Version ${version}`, mb(asset.size)].filter(Boolean).join(' · ');
         if (asset) continue;
         // The newest release has no build for this platform: say so, in place of a link

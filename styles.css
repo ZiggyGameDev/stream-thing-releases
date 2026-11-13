@@ -131,13 +131,11 @@ code { padding: 3px 8px; border-radius: 7px; background: #0d0809; border: 1px so
 @media (max-width: 600px) { .howto { grid-template-columns: 1fr; } .shot { height: auto; min-height: 150px; } }
 .alt { margin-top: 22px; }
 
-/* ---- features: a line or two beside a picture of it ---- */
-.feature { padding-top: 110px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 44px; align-items: center; }
-.feature p { margin-top: 16px; color: var(--muted); font-size: 1.08rem; }
-.feature img { border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0, 0, 0, .55); }
-.feature.flip > div { order: 2; }
-.feature.flip { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-.feature.tall img { max-width: 260px; margin: 0 auto; border-radius: 26px; border: 5px solid #2c2024; }
+/* ---- features: a line or two, then a picture of it as wide as the page ---- */
+.feature { padding-top: 120px; text-align: center; }
+.feature p { max-width: 620px; margin: 14px auto 34px; color: var(--muted); font-size: 1.08rem; }
+.feature img { width: 100%; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0, 0, 0, .6), 0 0 100px rgba(255, 45, 120, .1); }
+.feature.tall img { width: 320px; margin: 0 auto; border-radius: 30px; border: 5px solid #2c2024; }
 
 /* ---- the rest, in a line each ---- */
 .quick { padding-top: 120px; text-align: center; }
@@ -150,10 +148,7 @@ footer p { max-width: 560px; margin: 0 auto; color: #8b7d80; font-size: .84rem; 
 
 /* ---- smaller screens ---- */
 @media (max-width: 1200px) { .phone { right: 0; } }
-@media (max-width: 900px) {
-  .feature, .feature.flip { grid-template-columns: 1fr; gap: 26px; padding-top: 80px; }
-  .feature.flip > div { order: 0; }
-}
+@media (max-width: 900px) { .feature { padding-top: 84px; } }
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .hero { padding-top: 36px; }

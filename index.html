@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>stream-thing: one player for your PC, phone and TV</title>
-  <meta name="description" content="stream-thing is a player for the Stremio addon protocol on Windows, Android and Android TV. Your addons, your watch history and your place in every episode follow you from screen to screen.">
+  <meta name="description" content="stream-thing is a player for the Stremio addon protocol on Windows, Android, Android TV, and Samsung and LG TVs. Your addons, your watch history and your place in every episode follow you from screen to screen.">
   <meta name="theme-color" content="#110b0c">
   <meta property="og:title" content="stream-thing">
   <meta property="og:description" content="One player for your PC, phone and TV.">
@@ -48,7 +48,7 @@
         </a>
         <a class="btn ghost" href="#download">All platforms</a>
       </div>
-      <p class="fine"><span data-version hidden></span>Free. Windows, Android and Android TV. stream-thing does not host or provide any media.</p>
+      <p class="fine"><span data-version hidden></span>Free. Windows, Android, Android TV, and Samsung and LG TVs. stream-thing does not host or provide any media.</p>
 
       <div class="stage" aria-hidden="true">
         <div class="screen">
@@ -89,6 +89,8 @@
       <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Android</li>
       <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>Android TV</li>
       <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>Google TV</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>Samsung TV</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>LG TV</li>
     </ul>
 
     <section class="download" id="download">
@@ -101,7 +103,11 @@
         <button role="tab" id="tab-android" aria-controls="panel-android" aria-selected="false" tabindex="-1">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Phone</button>
         <button role="tab" id="tab-tv" aria-controls="panel-tv" aria-selected="false" tabindex="-1">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>TV</button>
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>Android TV</button>
+        <button role="tab" id="tab-samsung" aria-controls="panel-samsung" aria-selected="false" tabindex="-1">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>Samsung TV</button>
+        <button role="tab" id="tab-lg" aria-controls="panel-lg" aria-selected="false" tabindex="-1">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg>LG TV</button>
       </div>
 
       <article class="panel" role="tabpanel" id="panel-windows" aria-labelledby="tab-windows">
@@ -234,6 +240,124 @@
             </li>
           </ol>
           <p class="aside">Can't find where to switch it on later? It lives in Settings → Apps → Security &amp; restrictions → Unknown sources.</p>
+        </div>
+      </article>
+
+      <article class="panel" role="tabpanel" id="panel-samsung" aria-labelledby="tab-samsung">
+        <div>
+          <h3>stream-thing for Samsung TVs</h3>
+          <p>The same app, made for Samsung's own smart TVs (Tizen) and the remote that came with them. No box or stick plugged in.</p>
+          <ul class="notes">
+            <li>Samsung only lets a TV run an app that was signed for that TV, so this takes a computer and about half an hour, once</li>
+            <li>A TV app can't update itself: a new version is installed the same way</li>
+          </ul>
+        </div>
+        <div class="get">
+          <a class="btn solid" data-download="samsung"
+             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-samsung-tv.wgt">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Samsung TV</a>
+          <small data-meta="samsung">.wgt for Samsung smart TVs</small>
+        </div>
+
+        <div class="howto">
+          <h4>How to get it onto the TV</h4>
+          <p class="why">Samsung has no "install from a file" on the TV itself. You put the TV in Developer mode, then sign the app for your TV and send it over from a computer on the same network, with Samsung's free Tizen Studio.</p>
+          <ol>
+            <li>
+              <div class="shot tvshot" aria-hidden="true">
+                <div class="set"><small>Developer mode</small>
+                  <div class="toggle"><span>On</span><i class="tap"></i></div>
+                  <div class="field">Host PC IP &nbsp;192.168.1.20</div></div>
+              </div>
+              <h5>Turn on Developer mode</h5>
+              <p>On the TV open <b>Apps</b> and press <b>1 2 3 4 5</b> on the remote. Switch <b>Developer mode</b> on, enter your computer's IP address, and restart the TV.</p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="set"><small>Device Manager · Remote devices</small><strong>Living room TV</strong>
+                  <div class="toggle"><span>192.168.1.50</span><i class="tap"></i></div></div>
+              </div>
+              <h5>Connect Tizen Studio to the TV</h5>
+              <p>Install <a href="https://developer.samsung.com/smarttv" rel="noopener">Tizen Studio</a> with its TV and Samsung Certificate extensions. In <b>Device Manager</b>, add the TV by its IP address and switch the connection on.</p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="dlg"><strong>Certificate Manager</strong><p>Samsung · TV</p>
+                  <div class="toggle"><span>Living room TV</span><i class="tap"></i></div></div>
+              </div>
+              <h5>Make a certificate for your TV</h5>
+              <p>In <b>Certificate Manager</b> add a <b>Samsung</b> certificate for <b>TV</b>, sign in with a Samsung account, and tick your connected TV when it asks which devices.</p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="term"><span>tizen package -t wgt -s MyProfile -- stream-thing-samsung-tv.wgt</span><span>tizen install -n stream-thing-samsung-tv.wgt</span><span class="tap">Installed</span></div>
+              </div>
+              <h5>Sign it and install it</h5>
+              <p>In a terminal, in the folder with the download, run these two with your certificate profile's name. stream-thing then appears among the TV's apps.</p>
+              <p><code class="addr">tizen package -t wgt -s MyProfile -- stream-thing-samsung-tv.wgt</code></p>
+              <p><code class="addr">tizen install -n stream-thing-samsung-tv.wgt</code></p>
+            </li>
+          </ol>
+          <p class="aside">Menus move around between model years. Samsung's developer site has its own walkthrough of Developer mode and certificates if a step looks different on yours.</p>
+        </div>
+      </article>
+
+      <article class="panel" role="tabpanel" id="panel-lg" aria-labelledby="tab-lg">
+        <div>
+          <h3>stream-thing for LG TVs</h3>
+          <p>The same app, made for LG's own smart TVs (webOS) and the Magic Remote. No box or stick plugged in.</p>
+          <ul class="notes">
+            <li>LG TVs install it in Developer Mode, sent over from a computer on the same network</li>
+            <li>Developer Mode runs out after a while unless you extend it in its app, and the TV removes the app when it does</li>
+            <li>A TV app can't update itself: a new version is installed the same way</li>
+          </ul>
+        </div>
+        <div class="get">
+          <a class="btn solid" data-download="lg"
+             href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-lg-tv.ipk">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for LG TV</a>
+          <small data-meta="lg">.ipk for LG webOS TVs</small>
+        </div>
+
+        <div class="howto">
+          <h4>How to get it onto the TV</h4>
+          <p class="why">LG lets a TV install apps from a computer once its Developer Mode app is switched on. That needs a free LG developer account, and the app needs no signing.</p>
+          <ol>
+            <li>
+              <div class="shot tvshot" aria-hidden="true">
+                <div class="set"><small>Developer Mode</small>
+                  <div class="toggle"><span>Dev Mode Status</span><i class="tap"></i></div>
+                  <div class="toggle"><span>Key Server</span><i class="tap"></i></div></div>
+              </div>
+              <h5>Turn on Developer Mode</h5>
+              <p>Make an account at <a href="https://webostv.developer.lge.com" rel="noopener">LG's developer site</a>. On the TV, install <b>Developer Mode</b> from the LG Content Store, sign in, switch <b>Dev Mode Status</b> on (the TV restarts), then <b>Key Server</b>.</p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="term"><span>npm install -g @webos-tools/cli</span><span class="tap">added ares-install</span></div>
+              </div>
+              <h5>Get LG's tools</h5>
+              <p>On the computer, with <a href="https://nodejs.org" rel="noopener">Node.js</a> installed, run this in a terminal:</p>
+              <p><code class="addr">npm install -g @webos-tools/cli</code></p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="term"><span>ares-setup-device</span><span>name: tv &nbsp;ip: 192.168.1.60</span><span>ares-novacom --device tv --getkey</span><span class="tap">passphrase: A1B2C3</span></div>
+              </div>
+              <h5>Introduce the TV</h5>
+              <p>Run <b>ares-setup-device</b> and add the TV by the IP address the Developer Mode app shows (port 9922, user prisoner). Then run the second command and type the passphrase from the TV's screen.</p>
+              <p><code class="addr">ares-novacom --device tv --getkey</code></p>
+            </li>
+            <li>
+              <div class="shot" aria-hidden="true">
+                <div class="term"><span>ares-install --device tv stream-thing-lg-tv.ipk</span><span class="tap">Success</span></div>
+              </div>
+              <h5>Install it</h5>
+              <p>In the folder with the download, run this. stream-thing then appears among the TV's apps.</p>
+              <p><code class="addr">ares-install --device tv stream-thing-lg-tv.ipk</code></p>
+            </li>
+          </ol>
+          <p class="aside">Menus move around between model years. LG's developer site has its own walkthrough of the Developer Mode app if a step looks different on yours.</p>
         </div>
       </article>
     </section>

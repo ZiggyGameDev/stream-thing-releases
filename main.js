@@ -9,6 +9,8 @@
     windows: { file: 'stream-thing-windows.exe', label: 'Download for Windows' },
     android: { file: 'stream-thing-android.apk', label: 'Download for Android' },
     tv: { file: 'stream-thing-android-tv.apk', label: 'Download for Android TV' },
+    samsung: { file: 'stream-thing-samsung-tv.wgt', label: 'Download for Samsung TV' },
+    lg: { file: 'stream-thing-lg-tv.ipk', label: 'Download for LG TV' },
   };
   // GitHub answers this with a redirect to the newest release's file, sent as an
   // attachment, so the browser downloads it and the page stays where it is.
@@ -17,6 +19,8 @@
   /** Which build suits this device, or null when there isn't one (iPhone, Mac, Linux). */
   function detect() {
     const ua = navigator.userAgent;
+    if (/Tizen/i.test(ua)) return 'samsung';
+    if (/Web0S|webOS/i.test(ua)) return 'lg';
     if (/Android/i.test(ua)) {
       return /\bTV\b|AFT|BRAVIA|SHIELD|Chromecast|GoogleTV|Large Screen/i.test(ua) ? 'tv' : 'android';
     }
@@ -25,9 +29,12 @@
   }
 
   const mine = detect();
+  // A Samsung or LG TV's build is sent over from a computer, so there the big buttons lead
+  // to the instructions and not to a file.
+  const direct = ['windows', 'android', 'tv'].includes(mine) ? mine : null;
 
   for (const a of document.querySelectorAll('[data-download]')) {
-    const kind = a.dataset.download === 'auto' ? mine : a.dataset.download;
+    const kind = a.dataset.download === 'auto' ? direct : a.dataset.download;
     if (!kind) {
       // No build for this device: the button leads to the list instead of a file it can't run.
       a.href = '#download';
@@ -61,7 +68,7 @@
     });
   });
   document.documentElement.classList.add('js');
-  select(document.getElementById(`tab-${mine === 'android' ? 'android' : mine === 'tv' ? 'tv' : 'windows'}`));
+  select(document.getElementById(`tab-${mine ?? 'windows'}`));
 
   // ---- the latest version and its file sizes ----
   const mb = (bytes) => `${Math.round(bytes / 1024 / 1024)} MB`;
@@ -81,6 +88,16 @@
         const asset = (release.assets || []).find((a) => a.name === file);
         const el = document.querySelector(`[data-meta="${kind}"]`);
         if (asset && el) el.textContent = [version && `Version ${version}`, mb(asset.size)].filter(Boolean).join(' · ');
+        if (asset) continue;
+        // The newest release has no build for this platform: say so, in place of a link
+        // that would lead nowhere. It comes back by itself with the release that has one.
+        for (const a of document.querySelectorAll(`[data-download="${kind}"]`)) {
+          a.removeAttribute('href');
+          a.setAttribute('aria-disabled', 'true');
+          a.classList.add('off');
+          a.textContent = 'Not in this version yet';
+        }
+        if (el) el.textContent = version ? `Version ${version} has no build for this TV. The steps below are for when one does.` : '';
       }
     })
     .catch(() => {});

@@ -3,264 +3,133 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>stream-thing: stream things to your screens</title>
-  <meta name="description" content="stream-thing is a player for the Stremio addon protocol on Windows, Android, Android TV, and Samsung and LG TVs.">
+  <title>DizziTV: films, shows and live channels on every screen</title>
+  <meta name="description" content="DizziTV is a player for the Stremio addon protocol on Windows, Android, Android TV, and Samsung and LG TVs.">
   <meta name="theme-color" content="#110b0c">
-  <meta property="og:title" content="stream-thing">
-  <meta property="og:description" content="Stream things to your screens.">
+  <meta property="og:title" content="DizziTV">
+  <meta property="og:description" content="Films, shows and live channels on every screen.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preload" href="assets/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- ?v: raise it (here and on main.js below) whenever either file changes, so no browser
-       pairs this page with the copy it kept from before. -->
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=23">
+  <!-- ?v: raise it (here and on the scripts below) whenever a file changes, so no browser
+       pairs this page with a copy it kept from before. -->
+  <link rel="stylesheet" href="styles.css?v=23">
+  <!-- The start-up animation plays when the site is opened, not when coming back to this page
+       from one of its own (the terms, say), and never with reduced motion. Decided here,
+       before anything is drawn, so the page never flashes up first. Nothing is stored. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {};
+      var fromHere = false;
+      try { fromHere = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+      if (!fromHere && nav.type !== 'back_forward' && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('intro');
+      // Whatever happens, the page is never left hidden behind it.
+      setTimeout(function () { d.classList.remove('intro'); }, 12000);
+    })();
+  </script>
 </head>
 <!--
   Downloads come straight from GitHub Releases. `data-repo` is the repository whose latest
   release holds the files; every download link on the page is built from it by main.js, and
   the hrefs written below are the same links for a browser without scripts. The file names
-  carry no version, so "latest" always resolves to the newest build.
+  carry no version (and keep the app's first name), so "latest" always resolves to the newest build.
 -->
-<body data-repo="ZiggyGameDev/stream-thing-releases">
+<body data-repo="ZiggyGameDev/stream-thing-releases" id="top">
   <div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+  <!-- The start-up animation (intro.js): the name flicks through faces and lands, "TV" slides
+       in, the mark rises above it and cuts itself, then both fly up into the bar. -->
+  <div class="intro-screen" aria-hidden="true">
+    <div class="intro-bg"></div>
+    <div class="intro-stack">
+      <div class="intro-logo"><span class="fly"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="ig" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="im" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#ig)" mask="url(#im)"/></svg></span></div>
+      <div class="intro-name"><span class="fly"><span class="lockup"><span class="lk-d"></span><span class="lk-word">Dizzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></span></div>
+    </div>
+    <button class="intro-skip" type="button">Skip</button>
+  </div>
+
+  <header class="bar">
+    <nav>
+      <a class="brand" href="#top" aria-label="DizziTV, back to the top"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="ng" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="nm" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#ng)" mask="url(#nm)"/></svg><span class="lockup"><span class="lk-d"></span><span class="lk-word">izzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></a>
+      <div class="links">
+        <a href="#features">Features</a>
+        <i class="mark" aria-hidden="true"></i>
+      </div>
+      <a class="btn solid small" href="#get" data-get><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Get it</a>
+    </nav>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
 
   <main>
     <section class="hero">
-      <p class="brand"><img src="assets/logo.svg" alt="" width="26" height="26"><span>stream-thing</span></p>
-      <h1>Stream things <span class="grad">to your screens.</span></h1>
-      <div class="stage">
+      <h1><span class="line" data-reveal>Everything you watch.</span> <span class="line" data-reveal style="--d:.12s"><span class="grad">On every screen.</span></span></h1>
+      <p class="sub" data-reveal style="--d:.24s">Films, shows and live channels from the addons you choose, on your PC, your phone and your TV.</p>
+      <div class="ctas" data-reveal style="--d:.36s">
+        <!-- The build for this device (main.js picks it), and the others beside it. -->
+        <div class="split" id="get">
+          <a class="btn solid" data-download="auto" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg><span data-label>Download</span></a>
+          <button class="btn solid caret" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="picks" aria-label="Other devices"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="menu" id="picks" role="menu" hidden>
+            <small class="menu-head">Download for</small>
+            <a role="menuitem" data-pick="windows" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><span>Windows</span><small></small></a><a role="menuitem" data-pick="android" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><span>Android</span><small></small></a><a role="menuitem" data-pick="tv" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><span>Android TV</span><small></small></a><a role="menuitem" data-pick="samsung" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><span>Samsung TV</span><small></small></a><a role="menuitem" data-pick="lg" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest"><span>LG TV</span><small></small></a>
+            <a class="menu-all" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest" rel="noopener">All downloads on GitHub</a>
+          </div>
+        </div>
+        <a class="btn ghost" href="#features">See what it does</a>
+        <a class="btn ghost" href="https://github.com/ZiggyGameDev/stream-thing-releases" rel="noopener"><svg class="ic gh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.08-.12-.3-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.75.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>GitHub</a>
+      </div>
+      <div class="stage" data-reveal style="--d:.45s">
         <div class="screen">
-          <img src="assets/shots/desktop-home.webp" width="1500" height="951" alt="stream-thing on Windows: a featured show across the top, then rows of genres and the day's top ten">
+          <img src="assets/shots/desktop-home.webp" width="1500" height="950" alt="DizziTV on Windows: a featured show across the top, then what you're watching and genres">
         </div>
         <div class="phone">
-          <img src="assets/shots/phone-films.webp" width="720" height="1600" alt="stream-thing on an Android phone: the Films page">
+          <img src="assets/shots/phone-films.webp" width="720" height="1600" alt="DizziTV on an Android phone: the Films page">
         </div>
       </div>
     </section>
 
-    <section class="download" id="download">
-      <h2>Download</h2>
-
-      <div class="dl">
-      <div class="tablist" role="tablist" aria-label="Platform">
-        <button role="tab" id="tab-windows" aria-controls="panel-windows" aria-selected="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8m-4-4v4"/></svg><span>Windows</span></button>
-        <button role="tab" id="tab-android" aria-controls="panel-android" aria-selected="false" tabindex="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg><span>Android</span></button>
-        <button role="tab" id="tab-tv" aria-controls="panel-tv" aria-selected="false" tabindex="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg><span>Android TV</span></button>
-        <button role="tab" id="tab-samsung" aria-controls="panel-samsung" aria-selected="false" tabindex="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg><span>Samsung TV</span></button>
-        <button role="tab" id="tab-lg" aria-controls="panel-lg" aria-selected="false" tabindex="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M7 20.5h10"/></svg><span>LG TV</span></button>
+    <!-- What it does: one big window, with tabs above it that move on by themselves (main.js). -->
+    <section class="tour" id="features">
+      <h2 data-reveal>One app for <span class="grad">all of it.</span></h2>
+      <div class="tour-tabs" role="tablist" aria-label="What DizziTV does" data-reveal style="--d:.1s">
+          <button role="tab" id="tour-tab-player" aria-controls="tour-panel" aria-selected="true" data-i="0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5Z"/></svg><span>Player</span><i class="bar-fill" aria-hidden="true"></i></button>
+          <button role="tab" id="tour-tab-live" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-i="1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M7.8 16.2a6 6 0 0 1 0-8.4m8.4 0a6 6 0 0 1 0 8.4M4.9 19.1a10 10 0 0 1 0-14.2m14.2 0a10 10 0 0 1 0 14.2"/></svg><span>Live channels</span><i class="bar-fill" aria-hidden="true"></i></button>
+          <button role="tab" id="tour-tab-party" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-i="2"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A4.6 4.6 0 0 1 21 18.6"/></svg><span>Watch party</span><i class="bar-fill" aria-hidden="true"></i></button>
+          <button role="tab" id="tour-tab-mylist" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-i="3"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10a1 1 0 0 1 1 1V21l-6-4-6 4V4.5a1 1 0 0 1 1-1Z"/></svg><span>My list</span><i class="bar-fill" aria-hidden="true"></i></button>
       </div>
-
-      <article class="panel" role="tabpanel" id="panel-windows" aria-labelledby="tab-windows">
-        <div class="head">
-          <div><h3>Windows</h3><small data-meta="windows">Windows 10 or 11, 64-bit</small></div>
-          <a class="btn solid" data-download="windows" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-windows.msi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Windows</a>
+      <div class="tour-caps" aria-live="polite" data-reveal style="--d:.15s">
+          <p class="on" data-i="0">A clean, full-screen player, with sources and subtitles a click away.</p>
+          <p class="" data-i="1">Always-on channels, with something already playing when you sit down.</p>
+          <p class="" data-i="2">Start a party from the player and share the code. Everyone watches in step, on their own screen.</p>
+          <p class="" data-i="3">Save what you want to watch, and see new episodes of your shows on the day they air.</p>
+      </div>
+      <div class="tour-window" id="tour-panel" role="tabpanel" data-reveal style="--d:.2s">
+        <div class="tour-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="tour-shots">
+          <img class="on" src="assets/shots/desktop-player.webp" alt="The player: a scene from Tears of Steel, with the title, the progress bar and its controls below">
+          <img class="" loading="lazy" src="assets/shots/desktop-live.webp" alt="The Live guide: always-on channels and what each is showing through the evening" data-i="1">
+          <img class="" loading="lazy" src="assets/shots/desktop-party.webp" alt="A watch party open over the player: its code, who's in, and the chat" data-i="2">
+          <img class="" loading="lazy" src="assets/shots/desktop-mylist.webp" alt="My list: a month's calendar with new episodes of your shows on the days they air" data-i="3">
         </div>
-      </article>
-
-      <article class="panel" role="tabpanel" id="panel-android" aria-labelledby="tab-android">
-        <div class="head">
-          <div><h3>Android</h3><small data-meta="android">APK for phones and tablets</small></div>
-          <a class="btn solid" data-download="android" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android.apk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android</a>
-        </div>
-        <ol class="howto">
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="dlg"><strong>File might be harmful</strong><p>Download stream-thing-android.apk anyway?</p>
-                <div class="acts"><span>Cancel</span><span class="tap">Download anyway</span></div></div>
-            </div>
-            <h5>Download the file and open it</h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="set"><small>Install unknown apps</small><strong>Chrome</strong>
-                <div class="toggle"><span>Allow from this source</span><i class="tap"></i></div></div>
-            </div>
-            <h5>Allow your browser to install apps</h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div><p>Do you want to install this app?</p>
-                <div class="acts"><span>Cancel</span><span class="tap">Install</span></div></div>
-            </div>
-            <h5>Tap Install</h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="dlg"><strong>Blocked by Play Protect</strong>
-                <div class="more"><span>More details</span><span class="tap">Install anyway</span></div>
-                <div class="acts"><span>OK</span></div></div>
-            </div>
-            <h5>If Play Protect blocks it: More details, then Install anyway</h5>
-          </li>
-        </ol>
-      </article>
-
-      <article class="panel" role="tabpanel" id="panel-tv" aria-labelledby="tab-tv">
-        <div class="head">
-          <div><h3>Android TV</h3><small data-meta="tv">APK for Android TV and Google TV</small></div>
-          <a class="btn solid" data-download="tv" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android-tv.apk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for Android TV</a>
-        </div>
-        <ol class="howto">
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="store"><i class="dicon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg></i>
-                <div><strong>Downloader</strong><small>AFTVnews</small></div><span class="tap">Install</span></div>
-            </div>
-            <h5>On the TV, install an app called Downloader from the app store</h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="url"><small>Enter a URL or search term</small><div class="field" data-tv-address>this site's address, then /tv</div><span class="tap">Go</span></div>
-            </div>
-            <h5>Open it and enter <code data-tv-address>this site's address, then /tv</code></h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="set"><small>Install unknown apps</small>
-                <div class="toggle"><span>Downloader</span><i class="tap"></i></div></div>
-            </div>
-            <h5>Allow Downloader to install apps</h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div><p>Do you want to install this app?</p>
-                <div class="acts"><span>Cancel</span><span class="tap">Install</span></div></div>
-            </div>
-            <h5>Choose Install</h5>
-          </li>
-        </ol>
-      </article>
-
-      <article class="panel" role="tabpanel" id="panel-samsung" aria-labelledby="tab-samsung">
-        <div class="head">
-          <div><h3>Samsung TV</h3><small>Through TizenBrew</small></div>
-        </div>
-        <ol class="howto">
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="dlg"><strong>TizenBrew Installer</strong><p>Living room TV</p>
-                <div class="acts"><span class="tap">Install TizenBrew</span></div></div>
-            </div>
-            <h5>Install <a href="https://github.com/reisxd/TizenBrew/blob/main/docs/README.md" rel="noopener">TizenBrew</a> on the TV</h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="store"><i class="dicon tb"><svg class="ic" viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 9h6v6H9z"/></svg></i>
-                <div><strong>TizenBrew</strong><small>Apps</small></div><span class="tap">Open</span></div>
-            </div>
-            <h5>Open TizenBrew</h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="url"><small>Add GitHub Module</small><div class="field">ZiggyGameDev/stream-thing-releases</div><span class="tap">Done</span></div>
-            </div>
-            <h5>Press green, choose Add GitHub Module, enter <code>ZiggyGameDev/stream-thing-releases</code></h5>
-          </li>
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="dlg"><div class="app"><img src="assets/logo.svg" alt=""><strong>stream-thing</strong></div>
-                <div class="acts"><span class="tap">Open</span></div></div>
-            </div>
-            <h5>Select stream-thing in the list</h5>
-          </li>
-        </ol>
-        <p class="alt">Or sign and install the
-          <a data-download="samsung" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-samsung-tv.wgt">.wgt</a>
-          with Tizen Studio.</p>
-      </article>
-
-      <article class="panel" role="tabpanel" id="panel-lg" aria-labelledby="tab-lg">
-        <div class="head">
-          <div><h3>LG TV</h3><small data-meta="lg">.ipk for LG webOS TVs</small></div>
-          <a class="btn solid" data-download="lg" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-lg-tv.ipk"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download for LG TV</a>
-        </div>
-        <ol class="howto">
-          <li>
-            <div class="shot tvshot" aria-hidden="true">
-              <div class="set"><small>Developer Mode</small>
-                <div class="toggle"><span>Dev Mode Status</span><i class="tap"></i></div>
-                <div class="toggle"><span>Key Server</span><i class="tap"></i></div></div>
-            </div>
-            <h5>On the TV, install Developer Mode, sign in with an <a href="https://webostv.developer.lge.com" rel="noopener">LG developer account</a>, turn on both switches</h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="term"><span>npm install -g @webos-tools/cli</span><span class="tap">added ares-install</span></div>
-            </div>
-            <h5>On a computer with <a href="https://nodejs.org" rel="noopener">Node.js</a>, run <code>npm install -g @webos-tools/cli</code></h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="term"><span>ares-setup-device</span><span>name: tv &nbsp;ip: 192.168.1.60</span><span>ares-novacom --device tv --getkey</span><span class="tap">passphrase: A1B2C3</span></div>
-            </div>
-            <h5>Run <code>ares-setup-device</code> (name tv, the TV's IP, port 9922, user prisoner), then <code>ares-novacom --device tv --getkey</code></h5>
-          </li>
-          <li>
-            <div class="shot" aria-hidden="true">
-              <div class="term"><span>ares-install --device tv stream-thing-lg-tv.ipk</span><span class="tap">Success</span></div>
-            </div>
-            <h5>Run <code>ares-install --device tv stream-thing-lg-tv.ipk</code></h5>
-          </li>
-        </ol>
-      </article>
       </div>
     </section>
 
-    <section class="feature">
-      <div>
-        <h2>Discover.</h2>
-        <p>Every catalogue from your addons, by genre. Top picks and "Because you watched" rows follow what you watch.</p>
-      </div>
-      <img loading="lazy" src="assets/shots/desktop-discover.webp" width="1500" height="951" alt="The Discover page on Windows: a grid of popular films with catalogue and genre pickers">
-    </section>
-
-    <section class="feature">
-      <div>
-        <h2>Watch party.</h2>
-        <p>Watch in step with friends, each on their own screen. Anyone can pick what's on, pause or skip.</p>
-      </div>
-      <img loading="lazy" src="assets/shots/desktop-party.webp" width="1301" height="820" alt="The watch party panel on Windows: start a party, or join one with a code">
-    </section>
-
-    <section class="feature">
-      <div>
-        <h2>Live channels.</h2>
-        <p>Always-on channels, with something already playing when you sit down.</p>
-      </div>
-      <img loading="lazy" src="assets/shots/desktop-live.webp" width="1303" height="810" alt="The Live guide on Windows: eight always-on channels and what each is showing through the evening">
-    </section>
-
-    <section class="feature">
-      <div>
-        <h2>My list.</h2>
-        <p>Save what you want to watch, and see new episodes of your shows on the day they air.</p>
-      </div>
-      <img loading="lazy" src="assets/shots/desktop-mylist.webp" width="1301" height="820" alt="My list on Windows: a calendar of the month with new episodes of saved shows on their days">
-    </section>
-
-    <section class="feature tall">
-      <div>
-        <h2>It follows you.</h2>
-        <p>Sign in with Google and your addons, your watch history and your place in every episode are on every screen.</p>
-      </div>
-      <img loading="lazy" src="assets/shots/phone-live.webp" width="720" height="1600" alt="The Live page on an Android phone">
-    </section>
-
-    <section class="quick">
-      <h2>And it also</h2>
-      <ul>
-        <li>Skips the credits</li>
-        <li>Picks the best source for you</li>
-        <li>Checks every source at once</li>
-        <li>Preloads the next episode</li>
-      </ul>
-    </section>
   </main>
 
   <footer>
-    <p>stream-thing is a media player. It does not host, store or provide any media; what it plays comes from addons you choose to install.</p>
+    <a class="brand" href="#top" aria-label="DizziTV, back to the top"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="fm" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#fg)" mask="url(#fm)"/></svg><span class="lockup"><span class="lk-d"></span><span class="lk-word">izzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></a>
+    <nav class="foot-links" aria-label="Legal">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://github.com/ZiggyGameDev/stream-thing-releases" rel="noopener">GitHub</a>
+    </nav>
+    <p class="copy">© 2026 DizziTV. DizziTV doesn't host or provide any media.</p>
   </footer>
 
-  <script src="main.js?v=8"></script>
+  <script src="main.js?v=23"></script>
+  <script src="intro.js?v=23"></script>
 </body>
 </html>

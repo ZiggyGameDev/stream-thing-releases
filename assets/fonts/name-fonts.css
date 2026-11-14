@@ -1,0 +1,28 @@
+/* The faces the name flicks through at the start, and Chango, the one it lands on: cut down
+ * to the letters of the name (D, i, z, T, V), so each is tiny. Served from here rather than
+ * Google Fonts, so loading the page sends nothing to anyone but the site's host. */
+@font-face { font-family: 'Alfa Slab One'; font-style: normal; font-weight: 400; font-display: block; src: url('alfa-slab-one-400.woff2') format('woff2'); }
+@font-face { font-family: 'Anton'; font-style: normal; font-weight: 400; font-display: block; src: url('anton-400.woff2') format('woff2'); }
+@font-face { font-family: 'Bangers'; font-style: normal; font-weight: 400; font-display: block; src: url('bangers-400.woff2') format('woff2'); }
+@font-face { font-family: 'Black Ops One'; font-style: normal; font-weight: 400; font-display: block; src: url('black-ops-one-400.woff2') format('woff2'); }
+@font-face { font-family: 'Bungee'; font-style: normal; font-weight: 400; font-display: block; src: url('bungee-400.woff2') format('woff2'); }
+@font-face { font-family: 'Bungee Shade'; font-style: normal; font-weight: 400; font-display: block; src: url('bungee-shade-400.woff2') format('woff2'); }
+@font-face { font-family: 'Chango'; font-style: normal; font-weight: 400; font-display: block; src: url('chango-400.woff2') format('woff2'); }
+@font-face { font-family: 'Cinzel Decorative'; font-style: normal; font-weight: 700; font-display: block; src: url('cinzel-decorative-700.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 700; font-display: block; src: url('cormorant-garamond-italic-700.woff2') format('woff2'); }
+@font-face { font-family: 'Creepster'; font-style: normal; font-weight: 400; font-display: block; src: url('creepster-400.woff2') format('woff2'); }
+@font-face { font-family: 'Dancing Script'; font-style: normal; font-weight: 700; font-display: block; src: url('dancing-script-700.woff2') format('woff2'); }
+@font-face { font-family: 'Kaushan Script'; font-style: normal; font-weight: 400; font-display: block; src: url('kaushan-script-400.woff2') format('woff2'); }
+@font-face { font-family: 'Limelight'; font-style: normal; font-weight: 400; font-display: block; src: url('limelight-400.woff2') format('woff2'); }
+@font-face { font-family: 'Major Mono Display'; font-style: normal; font-weight: 400; font-display: block; src: url('major-mono-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Monoton'; font-style: normal; font-weight: 400; font-display: block; src: url('monoton-400.woff2') format('woff2'); }
+@font-face { font-family: 'Orbitron'; font-style: normal; font-weight: 800; font-display: block; src: url('orbitron-800.woff2') format('woff2'); }
+@font-face { font-family: 'Pacifico'; font-style: normal; font-weight: 400; font-display: block; src: url('pacifico-400.woff2') format('woff2'); }
+@font-face { font-family: 'Permanent Marker'; font-style: normal; font-weight: 400; font-display: block; src: url('permanent-marker-400.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 900; font-display: block; src: url('playfair-display-italic-900.woff2') format('woff2'); }
+@font-face { font-family: 'Press Start 2P'; font-style: normal; font-weight: 400; font-display: block; src: url('press-start-2p-400.woff2') format('woff2'); }
+@font-face { font-family: 'Rye'; font-style: normal; font-weight: 400; font-display: block; src: url('rye-400.woff2') format('woff2'); }
+@font-face { font-family: 'Shrikhand'; font-style: normal; font-weight: 400; font-display: block; src: url('shrikhand-400.woff2') format('woff2'); }
+@font-face { font-family: 'Silkscreen'; font-style: normal; font-weight: 400; font-display: block; src: url('silkscreen-400.woff2') format('woff2'); }
+@font-face { font-family: 'Special Elite'; font-style: normal; font-weight: 400; font-display: block; src: url('special-elite-400.woff2') format('woff2'); }
+@font-face { font-family: 'Yellowtail'; font-style: normal; font-weight: 400; font-display: block; src: url('yellowtail-400.woff2') format('woff2'); }

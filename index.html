@@ -11,10 +11,10 @@
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preload" href="assets/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=23">
+  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=24">
   <!-- ?v: raise it (here and on the scripts below) whenever a file changes, so no browser
        pairs this page with a copy it kept from before. -->
-  <link rel="stylesheet" href="styles.css?v=23">
+  <link rel="stylesheet" href="styles.css?v=24">
   <!-- The start-up animation plays when the site is opened, not when coming back to this page
        from one of its own (the terms, say), and never with reduced motion. Decided here,
        before anything is drawn, so the page never flashes up first. Nothing is stored. -->
@@ -56,6 +56,7 @@
       <a class="brand" href="#top" aria-label="DizziTV, back to the top"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="ng" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="nm" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#ng)" mask="url(#nm)"/></svg><span class="lockup"><span class="lk-d"></span><span class="lk-word">izzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></a>
       <div class="links">
         <a href="#features">Features</a>
+        <a href="#install">Installing</a>
         <i class="mark" aria-hidden="true"></i>
       </div>
       <a class="btn solid small" href="#get" data-get><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Get it</a>
@@ -78,7 +79,7 @@
             <a class="menu-all" href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest" rel="noopener">All downloads on GitHub</a>
           </div>
         </div>
-        <a class="btn ghost" href="#features">See what it does</a>
+        <a class="btn ghost" href="#install" data-install-link>How to install</a>
         <a class="btn ghost" href="https://github.com/ZiggyGameDev/stream-thing-releases" rel="noopener"><svg class="ic gh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.08-.12-.3-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.75.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>GitHub</a>
       </div>
       <div class="stage" data-reveal style="--d:.45s">
@@ -117,6 +118,56 @@
       </div>
     </section>
 
+    <!-- Installing: the steps for each kind of device, opened on this one (main.js), and the
+         warnings Android shows on the way, named before they appear so they don't alarm. -->
+    <section class="install" id="install">
+      <h2 data-reveal>Installing is <span class="grad">a minute's work.</span></h2>
+      <p class="sub" data-reveal style="--d:.08s">DizziTV isn't in the Play Store, so Android checks it a little more carefully than usual. Here's every screen you'll see, so nothing's a surprise.</p>
+      <div class="tour-tabs install-tabs" role="tablist" aria-label="Your device" data-reveal style="--d:.12s">
+        <button role="tab" id="inst-tab-android" aria-controls="inst-android" aria-selected="true" data-kind="android"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Android phone</span></button>
+        <button role="tab" id="inst-tab-tv" aria-controls="inst-tv" aria-selected="false" tabindex="-1" data-kind="tv"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 20.5h8"/></svg><span>Android TV</span></button>
+        <button role="tab" id="inst-tab-fire" aria-controls="inst-fire" aria-selected="false" tabindex="-1" data-kind="fire"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="19" rx="3"/><circle cx="12" cy="7" r="1.2"/></svg><span>Fire TV</span></button>
+      </div>
+
+      <div class="install-panel" id="inst-android" role="tabpanel" aria-labelledby="inst-tab-android">
+        <ol class="steps">
+          <li><b>Download it.</b> Tap <a href="https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest/download/stream-thing-android.apk" data-download="android">Download for Android</a>, then open the file when it's finished.</li>
+          <li><b>Let your browser install it.</b> Android says <q>For your security, your phone isn't allowed to install unknown apps from this source.</q> Tap <em>Settings</em>, switch on <em>Allow from this source</em>, then go back.</li>
+          <li><b>Tap <em>Install</em>.</b> If Play Protect says it hasn't seen this app before, tap <em>Scan app</em>, or <em>More details → Install anyway</em>. It's new to Google, not harmful.</li>
+          <li><b>Open DizziTV.</b> You can switch <em>Allow from this source</em> off again now. Updates install from inside the app.</li>
+        </ol>
+      </div>
+
+      <div class="install-panel" id="inst-tv" role="tabpanel" aria-labelledby="inst-tab-tv" hidden>
+        <p class="note">For Android TV, Google TV and Chromecast with Google TV.</p>
+        <p class="here" data-on-tv hidden>You're on your TV now: press OK on the download button at the top of the page, then follow from step 3.</p>
+        <ol class="steps">
+          <li><b>Get Downloader.</b> TVs rarely have a browser, so install the free <em>Downloader</em> app (by AFTVnews) from Google Play on the TV.</li>
+          <li><b>Let Downloader install apps.</b> Settings → Apps → Security &amp; restrictions → <em>Unknown sources</em> → switch on <em>Downloader</em>. Can't see it? On Google TV, go to Settings → System → About and press OK on <em>Android TV OS build</em> seven times first, then try again.</li>
+          <li><b>Type the address.</b> Open Downloader and type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code><span data-dl-code hidden>, or just the code <code class="addr"></code></span>, then Go. The download starts on its own.</li>
+          <li><b>Install, then open.</b> Choose <em>Install</em>, then <em>Open</em>. If Play Protect asks, choose <em>Scan app</em> or <em>Install anyway</em>. Afterwards you can switch Downloader off under Unknown sources again.</li>
+        </ol>
+      </div>
+
+      <div class="install-panel" id="inst-fire" role="tabpanel" aria-labelledby="inst-tab-fire" hidden>
+        <p class="note">Works on the Fire TV Stick 4K, 4K Max and Cube, and Fire TV televisions. The newest sticks (the 4K Select and other Vega OS models) only install apps from Amazon's own store.</p>
+        <ol class="steps">
+          <li><b>Get Downloader.</b> Search for <em>Downloader</em> on the Fire TV home screen and install it (free, by AFTVnews).</li>
+          <li><b>Let Downloader install apps.</b> Settings → My Fire TV → Developer options → <em>Install unknown apps</em> → <em>Downloader: On</em>. No Developer options? Go to My Fire TV → About and press OK on your device's name seven times first.</li>
+          <li><b>Type the address.</b> In Downloader, type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code><span data-dl-code hidden>, or the code <code class="addr"></code></span>, then Go.</li>
+          <li><b>Install, then open.</b> Choose <em>Install</em>, then <em>Open</em>. Downloader offers to delete the file afterwards: say yes, it isn't needed any more.</li>
+        </ol>
+      </div>
+
+      <aside class="calm" data-reveal style="--d:.2s">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 4.5 5.6v6c0 4.6 3.1 8.4 7.5 9.6 4.4-1.2 7.5-5 7.5-9.6v-6Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
+        <div>
+          <b>Seeing a warning? That's normal.</b>
+          <p>Android double-checks anything that doesn't come from the Play Store, and that's a good thing. <q>Unknown app</q> means Google hasn't met this one yet, not that it's harmful. You only let the one app you download with (your browser or Downloader) install it, and you can switch that back off straight after. Leave Play Protect on. Only download DizziTV from this page: copies on other APK sites aren't ours.</p>
+        </div>
+      </aside>
+    </section>
+
   </main>
 
   <footer>
@@ -129,7 +180,7 @@
     <p class="copy">© 2026 DizziTV. DizziTV doesn't host or provide any media.</p>
   </footer>
 
-  <script src="main.js?v=23"></script>
-  <script src="intro.js?v=23"></script>
+  <script src="main.js?v=24"></script>
+  <script src="intro.js?v=24"></script>
 </body>
 </html>

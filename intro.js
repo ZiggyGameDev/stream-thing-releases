@@ -1,7 +1,8 @@
 /*
- * The start-up animation, as the app plays it (its SplashName.tsx): "Dizzi" flicks through 24
- * faces in quick hard cuts, slows for the last few, and lands on Chango with its play-button
- * D; a beat later "TV" slides in beside it, the mark rises above and the Z cuts through it.
+ * The start-up animation, as the app plays it (its SplashName.tsx): "Dizzi" flicks through a
+ * dozen faces in quick hard cuts, slows for the last few, and lands on Chango with its
+ * play-button D; straight away "TV" slides in beside it as the mark rises straight up above
+ * (in a box of its own) and the Z cuts through it.
  * Then the screen fades, the name and the mark fly up into their places in the bar, and the
  * page rises in behind them.
  *
@@ -52,9 +53,9 @@
   ];
   const ALL = KINDS.flat();
   const LAND = ['Chango', 400];
-  const START_MS = 350, STEP_MS = 70, LAST_MS = [100, 140, 190, 250], LOAD_MS = 2500;
+  const FACES = 12, START_MS = 350, STEP_MS = 60, LAST_MS = [90, 130, 180], LOAD_MS = 2500;
   /** From landing to handing over: "TV" in, the mark up and cut, a beat to see it. */
-  const HOLD_MS = 3000;
+  const HOLD_MS = 1700;
   const FLY_MS = 950;
 
   const fontOf = ([f, w, it]) => `${it ? 'italic ' : ''}${w} 100px "${f}"`;
@@ -71,7 +72,7 @@
       last = pick[0];
       out.push(pools[last].pop());
     }
-    return out;
+    return out.slice(0, FACES);
   }
 
   /** Each face's size relative to Chango's, so the flick changes style without jumping in size. */
@@ -162,7 +163,7 @@
   set(LAND);
   const t0 = performance.now();
   const faces = order();
-  const loaded = Promise.all([LAND, ...ALL].map((f) => document.fonts.load(fontOf(f), 'Dizzi').catch(() => [])));
+  const loaded = Promise.all([LAND, ...faces].map((f) => document.fonts.load(fontOf(f), 'Dizzi').catch(() => [])));
   const late = new Promise((r) => setTimeout(() => r('late'), LOAD_MS));
   Promise.race([loaded.then(() => 'ok'), late]).then((got) => {
     if (landed) return;

@@ -236,22 +236,22 @@ html.intro .bar .brand { visibility: hidden; }
 .intro-screen.landed .lk-d { display: block; }
 .intro-screen.landed .lk-word { padding: 0; }
 .intro-screen.landed .intro-name .lockup { animation: land .6s var(--ease); }
-/* "TV" takes no room during the flick, so the word is centred; after a beat its room opens. */
-.intro-screen .lk-tvwrap { width: 0; transition: width .5s var(--ease) .6s; }
+/* "TV" takes no room during the flick, so the word is centred; on landing its room opens. */
+.intro-screen .lk-tvwrap { width: 0; transition: width .45s var(--ease) .1s; }
 .intro-screen .lk-tv { opacity: 0; transform: translateX(-.35em) scale(.85); }
-.intro-screen.landed .lk-tv { animation: tv-in .45s var(--ease) .75s forwards; }
-/* The mark takes no room either, until "TV" is in and the word has stopped: then it rises
-   straight up above it and the Z cuts through. */
-.intro-logo { --il: clamp(90px, 11vw, 150px); height: 0; display: grid; place-items: end center; transition: height .55s var(--ease) 1.15s; }
+.intro-screen.landed .lk-tv { animation: tv-in .4s var(--ease) .2s forwards; }
+/* The mark: its own box above the name, out of the name's flow, so the name never moves for
+   it and it never moves with the name (which glides sideways as "TV" opens). It rises
+   straight up as "TV" comes in, and the Z cuts through. */
+.intro-logo { --il: clamp(90px, 11vw, 150px); position: absolute; left: 0; right: 0; bottom: 100%; height: var(--il); display: grid; place-items: end center; pointer-events: none; }
 .intro-logo .zmark { width: var(--il); height: var(--il); }
-.intro-logo .fly { opacity: 0; transform: translateY(60px); }
-.intro-screen.landed .intro-logo { height: var(--il); }
-.intro-screen.landed .intro-logo .fly { animation: rise .6s var(--ease) 1.15s forwards; }
+.intro-logo .fly { opacity: 0; transform: translateY(40px); }
+.intro-screen.landed .intro-logo .fly { animation: rise .5s var(--ease) .2s forwards; }
 .intro-logo .z-cut { stroke-dashoffset: 1; }
-.intro-screen.landed .intro-logo .z-cut { animation: z-cut .75s cubic-bezier(.5, 0, .2, 1) 1.55s forwards; }
-.intro-screen.landed .intro-logo .z-play { transform-origin: 288px 256px; animation: pulse .45s ease 1.45s; }
+.intro-screen.landed .intro-logo .z-cut { animation: z-cut .65s cubic-bezier(.5, 0, .2, 1) .6s forwards; }
+.intro-screen.landed .intro-logo .z-play { transform-origin: 288px 256px; animation: pulse .45s ease .5s; }
 /* Skipped (or handing over): everything straight to where it ends. */
-.intro-screen.still .lk-tvwrap, .intro-screen.still .intro-logo { transition: none; }
+.intro-screen.still .lk-tvwrap { transition: none; }
 .intro-screen.still .intro-name .lockup, .intro-screen.still .intro-logo .z-play { animation: none; }
 .intro-screen.still .lk-tv, .intro-screen.still .intro-logo .fly { animation: none; opacity: 1; transform: none; }
 .intro-screen.still .intro-logo .z-cut { animation: none; stroke-dashoffset: 0; }
@@ -269,9 +269,47 @@ html.intro .bar .brand { visibility: hidden; }
 @keyframes land { 0% { transform: scale(1.14); } 55% { transform: scale(.97); } 100% { transform: none; } }
 @keyframes pulse { 50% { transform: scale(1.06); } }
 
+/* ---- installing: a device's steps, numbered, and a calm word about the warnings ---- */
+.install { padding-top: 140px; padding-bottom: 120px; text-align: center; }
+.install-tabs { margin-top: 30px; }
+.install-panel { max-width: 760px; margin: 30px auto 0; text-align: left; }
+.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 12px; }
+.steps li {
+  counter-increment: step; position: relative; padding: 18px 22px 18px 72px; border-radius: 16px;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, .03); color: var(--muted);
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 20px; top: 16px; width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--grad); color: #1a0b08; font: 800 1rem 'Manrope', system-ui, sans-serif;
+}
+.steps b { color: var(--text); }
+.steps em { font-style: normal; color: var(--text); font-weight: 700; }
+.steps q { color: var(--text); font-style: italic; quotes: '“' '”'; }
+.steps a { color: var(--orange); font-weight: 700; }
+.addr {
+  display: inline-block; padding: 1px 8px; border-radius: 6px; background: rgba(255, 138, 0, .12); color: var(--orange);
+  font: 700 .95em ui-monospace, 'Cascadia Mono', Consolas, monospace; word-break: break-all;
+}
+.install .note, .install .here { margin: 0 0 14px; padding: 12px 16px; border-radius: 12px; font-size: .95rem; color: var(--muted); background: rgba(255, 255, 255, .04); }
+.install .here { color: var(--text); background: rgba(255, 138, 0, .1); }
+.calm {
+  max-width: 760px; margin: 22px auto 0; display: flex; gap: 16px; align-items: flex-start; text-align: left;
+  padding: 20px 22px; border-radius: 16px; border: 1px solid rgba(40, 200, 120, .25); background: rgba(40, 200, 120, .06);
+}
+.calm > .ic { width: 30px; height: 30px; stroke: #4ade80; margin-top: 2px; }
+.calm b { display: block; margin-bottom: 4px; }
+.calm p { color: var(--muted); font-size: .97rem; }
+.calm q { font-style: italic; }
+
+/* On a TV, seen from across the room: a ring you can't miss on whatever has the focus. */
+.on-tv :focus, .on-tv :focus-visible { outline: 4px solid #fff; outline-offset: 5px; }
+/* The download button and its arrow are one pill: the ring goes round the pair. */
+.on-tv .split > :focus, .on-tv .split > :focus-visible { outline: none; }
+.on-tv .split:has(> :focus) { outline: 4px solid #fff; outline-offset: 6px; border-radius: 999px; box-shadow: 0 0 0 14px rgba(255, 138, 0, .22); }
+
 /* ---- smaller screens ---- */
 @media (max-width: 1200px) { .phone { right: 0; } }
-@media (max-width: 900px) { .tour { padding-top: 100px; } }
+@media (max-width: 900px) { .tour, .install { padding-top: 100px; } }
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .bar nav { gap: 12px; }
@@ -291,6 +329,9 @@ html.intro .bar .brand { visibility: hidden; }
   .tour-tabs button { flex: 1 1 40%; justify-content: center; padding: 10px 12px; font-size: .88rem; }
   .tour-window { border-radius: 12px; }
   .tour-chrome { padding: 9px 12px; }
+  .steps li { padding: 16px 16px 16px 60px; }
+  .steps li::before { left: 14px; width: 30px; height: 30px; }
+  .calm { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation: none !important; transition: none !important; }

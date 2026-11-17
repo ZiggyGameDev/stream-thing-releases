@@ -117,6 +117,53 @@
     });
   }
 
+  // ---- on a TV: the download button is where the remote starts ----
+  // A TV is steered with arrows and OK, so the button that matters has the focus (and a
+  // ring big enough to see from the sofa) as soon as the page is there.
+  if (mine === 'tv') {
+    document.documentElement.classList.add('on-tv');
+    const button = document.querySelector('[data-download="auto"]');
+    const focus = () => button && button.focus({ preventScroll: true, focusVisible: true });
+    if (document.documentElement.classList.contains('intro')) window.addEventListener('dizzitv:intro-done', () => setTimeout(focus, 400), { once: true });
+    else focus();
+    for (const p of document.querySelectorAll('[data-on-tv]')) p.hidden = false;
+  }
+
+  // ---- installing: the steps for each kind of device ----
+  // Opened on this device's (a Fire TV says AFT in its name), the others a tab away.
+  // Downloader's short code, once there is one (go.aftvnews.com turns the /tv address into a
+  // number that's quicker to type with a remote): shown beside the address when set.
+  const DOWNLOADER_CODE = '';
+  if (DOWNLOADER_CODE) {
+    for (const s of document.querySelectorAll('[data-dl-code]')) {
+      s.querySelector('code').textContent = DOWNLOADER_CODE;
+      s.hidden = false;
+    }
+  }
+  const install = document.querySelector('.install');
+  if (install) {
+    const tabs = [...install.querySelectorAll('[role="tab"]')];
+    const show = (kind, focus) => {
+      for (const t of tabs) {
+        const on = t.dataset.kind === kind;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls'));
+        panel.hidden = !on;
+        if (on && focus) t.focus();
+      }
+    };
+    const fire = mine === 'tv' && /AFT/.test(navigator.userAgent);
+    show(fire ? 'fire' : mine === 'tv' ? 'tv' : 'android');
+    for (const t of tabs) t.addEventListener('click', () => show(t.dataset.kind));
+    install.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const i = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+      show(next.dataset.kind, true);
+    });
+  }
+
 })();
 
 

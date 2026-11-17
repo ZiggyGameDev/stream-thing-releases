@@ -33,8 +33,9 @@
       <h2 id="catalogue">If your addon already lists events</h2>
       <p>Nothing to change. For a match, DizziTV looks through each installed addon's catalogues that aren't films or shows (types like <code>tv</code>, <code>channel</code> or <code>events</code>):</p>
       <ul>
-        <li>A catalogue that takes a <code>search</code> extra is searched for the home side's name (or the event's, for a race or a tournament). Others are listed as they are.</li>
-        <li>An entry counts as the match when its <code>name</code> or <code>description</code> names both sides. Full names, short names and names without "FC" or "City" all count, but "Manchester United" never matches Manchester City. For an event without sides, most of the words in its title have to be there.</li>
+        <li>A catalogue that takes a <code>search</code> extra is searched for each side's name (a player's surname, or the event's name for a race or a tournament). Others are listed as they are.</li>
+        <li>An entry counts as the match when its <code>name</code> or <code>description</code> names both sides. Full names, short names, names without "FC" or "City", common nicknames ("Man Utd", "Spurs", "PSG"), clubs' names at home ("Bayern München", "Köln"), both abbreviations together ("MUN v ARS") and small typos all count. "Manchester United" never matches Manchester City. In tennis, darts, snooker, golf, boxing and UFC a surname is enough. For an event without sides, most of the words in its title have to be there.</li>
+        <li>Both sides' names are searched for, so it doesn't matter which you list first. An entry that also gives the kick-off time (UK or UTC, like "15:00") is preferred when there are several.</li>
         <li>The entry's streams are then asked for as usual: <code>/stream/&lt;type&gt;/&lt;id&gt;.json</code>.</li>
       </ul>
       <p>So the clearer an entry's name ("Lincoln City vs Wrexham"), the more reliably it's found. Up to six catalogues of each addon are looked at, the searchable ones first.</p>

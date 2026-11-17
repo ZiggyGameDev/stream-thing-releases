@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sport Addons · DizziTV</title>
+  <meta name="description" content="How an addon shows its streams on DizziTV's Sport pages.">
+  <link rel="canonical" href="https://ziggygamedev.github.io/stream-thing-releases/sport-addons.html">
+  <meta name="theme-color" content="#110b0c">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=28">
+  <link rel="stylesheet" href="styles.css?v=28">
+</head>
+<body class="legal-page">
+  <div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+  <header class="bar">
+    <nav>
+      <a class="brand" href="./" aria-label="DizziTV, back to the top"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="ng" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="nm" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#ng)" mask="url(#nm)"/></svg><span class="lockup"><span class="lk-d"></span><span class="lk-word">izzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></a>
+      <div class="links">
+        <a href="./#features">Features</a>
+        <i class="mark" aria-hidden="true"></i>
+      </div>
+      <a class="btn solid small" href="./#get"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Get it</a>
+    </nav>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+      <p class="eyebrow">For addon makers</p>
+      <h1>Sport addons</h1>
+      <p class="lede">DizziTV's Sport pages track every match, but the app doesn't come with streams. When someone presses Watch on a match, DizziTV asks the addons they've installed, using the ordinary Stremio addon protocol. This page explains how an addon shows up there.</p>
+
+      <h2 id="catalogue">If your addon already lists events</h2>
+      <p>Nothing to change. For a match, DizziTV looks through each installed addon's catalogues that aren't films or shows (types like <code>tv</code>, <code>channel</code> or <code>events</code>):</p>
+      <ul>
+        <li>A catalogue that takes a <code>search</code> extra is searched for the home side's name (or the event's, for a race or a tournament). Others are listed as they are.</li>
+        <li>An entry counts as the match when its <code>name</code> or <code>description</code> names both sides. Full names, short names and names without "FC" or "City" all count, but "Manchester United" never matches Manchester City. For an event without sides, most of the words in its title have to be there.</li>
+        <li>The entry's streams are then asked for as usual: <code>/stream/&lt;type&gt;/&lt;id&gt;.json</code>.</li>
+      </ul>
+      <p>So the clearer an entry's name ("Lincoln City vs Wrexham"), the more reliably it's found. Up to six catalogues of each addon are looked at, the searchable ones first.</p>
+
+      <h2 id="direct">Answering for a match directly</h2>
+      <p>An addon can also answer for DizziTV's own match ids, with no catalogue at all. Declare the <code>sport</code> type and the <code>sport:</code> id prefix:</p>
+      <pre><code>{
+  "id": "example.sport",
+  "version": "1.0.0",
+  "name": "My sport streams",
+  "resources": ["stream"],
+  "types": ["sport"],
+  "idPrefixes": ["sport:"],
+  "catalogs": []
+}</code></pre>
+      <p>DizziTV then asks <code>/stream/sport/sport:&lt;event id&gt;.json</code>, and you answer with <code>{ "streams": [...] }</code> as for any title. The event id says where the match comes from:</p>
+      <ul>
+        <li><code>espn-401880158</code>: an ESPN event (its id is ESPN's, so you can look the match up there);</li>
+        <li><code>espn-&lt;id&gt;-&lt;session&gt;</code>: one session of a Formula 1 weekend;</li>
+        <li><code>espn-cricket-&lt;id&gt;</code>, <code>tsdb-&lt;id&gt;</code> (TheSportsDB), <code>wiki-darts-…</code> and <code>wiki-snooker-…</code> for the rest.</li>
+      </ul>
+
+      <h2 id="rules">Please only stream what you have the right to</h2>
+      <p>DizziTV doesn't check, choose or endorse addons. People install them themselves, and they and the addon's maker are responsible for what it supplies. See the <a href="terms.html#content">Terms of Service</a>.</p>
+  </main>
+
+  <footer>
+    <a class="brand" href="./" aria-label="DizziTV, back to the top"><svg class="zmark" viewBox="62 36 440 440" aria-hidden="true"><defs><linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="100" y1="80" x2="430" y2="440"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#FF2D78"/></linearGradient><mask id="fm" maskUnits="userSpaceOnUse" x="-60" y="-60" width="640" height="640"><polygon class="z-play" points="146,92 146,420 430,256" fill="#fff" stroke="#fff" stroke-width="84" stroke-linejoin="round"/><path class="z-cut" d="M-80 200 H300 L170 312 H600" pathLength="1" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/></mask></defs><rect x="-40" y="-40" width="600" height="600" fill="url(#fg)" mask="url(#fm)"/></svg><span class="lockup"><span class="lk-d"></span><span class="lk-word">izzi</span><span class="lk-tvwrap"><span class="lk-tv">TV</span></span></span></a>
+    <nav class="foot-links" aria-label="Legal">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="sport-addons.html">Sport addons</a>
+      <a href="https://github.com/ZiggyGameDev/stream-thing-releases" rel="noopener">GitHub</a>
+    </nav>
+    <p class="copy">© 2026 DizziTV. DizziTV doesn't host or provide any media.</p>
+  </footer>
+
+  <!-- Lines up the name's gradient in the bar and footer (no opening animation here). -->
+  <script src="intro.js?v=28"></script>
+</body>
+</html>

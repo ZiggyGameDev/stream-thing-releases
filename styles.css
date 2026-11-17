@@ -367,3 +367,8 @@ html.intro .bar .brand { visibility: hidden; }
   html { scroll-behavior: auto; }
   .js [data-reveal] { opacity: 1; transform: none; clip-path: none; filter: none; }
 }
+
+/* Code on the addon page. */
+.legal code { font: 600 .9em ui-monospace, 'Cascadia Code', Consolas, monospace; background: rgba(255, 255, 255, .07); padding: .1em .35em; border-radius: 5px; }
+.legal pre { margin: 18px 0; padding: 16px 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #0d0809; }
+.legal pre code { background: none; padding: 0; font-size: .85rem; line-height: 1.55; }

@@ -3,18 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DizziTV: films, shows and live channels on every screen</title>
-  <meta name="description" content="DizziTV is a player for the Stremio addon protocol on Windows, Android, Android TV, and Samsung and LG TVs.">
+  <title>DizziTV: free app for films, shows and live TV on Android TV, Fire TV, Windows and phones</title>
+  <meta name="description" content="DizziTV is a free player for films, shows and live channels from the Stremio addons you choose. Download it for Windows, Android, Android TV, Google TV and Fire TV, or add it to a Samsung or LG TV.">
+  <link rel="canonical" href="https://ziggygamedev.github.io/stream-thing-releases/">
   <meta name="theme-color" content="#110b0c">
-  <meta property="og:title" content="DizziTV">
-  <meta property="og:description" content="Films, shows and live channels on every screen.">
+  <!-- How a shared link looks (Discord, WhatsApp, X, Facebook…): assets/og.png is 1200×630. -->
+  <meta property="og:site_name" content="DizziTV">
+  <meta property="og:title" content="DizziTV: everything you watch, on every screen">
+  <meta property="og:description" content="Films, shows and live channels from the addons you choose, on your PC, your phone and your TV. Free.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ziggygamedev.github.io/stream-thing-releases/">
+  <meta property="og:image" content="https://ziggygamedev.github.io/stream-thing-releases/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DizziTV on Windows, beside its name and the devices it runs on">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- For search engines: what the app is, where it runs, that it's free. -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DizziTV", "url": "https://ziggygamedev.github.io/stream-thing-releases/", "description": "A free app for films, shows and live channels from the addons you choose, on Windows, Android phones, Android TV, Google TV, Fire TV, and Samsung and LG TVs.", "applicationCategory": "MultimediaApplication", "operatingSystem": "Windows, Android, Android TV, Fire OS, Tizen, webOS", "downloadUrl": "https://github.com/ZiggyGameDev/stream-thing-releases/releases/latest", "image": "https://ziggygamedev.github.io/stream-thing-releases/assets/og.png", "screenshot": ["https://ziggygamedev.github.io/stream-thing-releases/assets/shots/desktop-home.webp", "https://ziggygamedev.github.io/stream-thing-releases/assets/shots/desktop-player.webp", "https://ziggygamedev.github.io/stream-thing-releases/assets/shots/phone-films.webp"], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"}}</script>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preload" href="assets/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=26">
+  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=28">
   <!-- ?v: raise it (here and on the scripts below) whenever a file changes, so no browser
        pairs this page with a copy it kept from before. -->
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=28">
   <!-- The start-up animation plays when the site is opened, not when coming back to this page
        from one of its own (the terms, say), and never with reduced motion. Decided here,
        before anything is drawn, so the page never flashes up first. Nothing is stored. -->
@@ -67,7 +78,7 @@
   <main>
     <section class="hero">
       <h1><span class="line" data-reveal>Everything you watch.</span> <span class="line" data-reveal style="--d:.12s"><span class="grad">On every screen.</span></span></h1>
-      <p class="sub" data-reveal style="--d:.24s">Films, shows and live channels from the addons you choose, on your PC, your phone and your TV.</p>
+      <p class="sub" data-reveal style="--d:.24s">DizziTV plays films, shows and live channels from the addons you choose, on your PC, your phone and your TV. Free.</p>
       <div class="ctas" data-reveal style="--d:.36s">
         <!-- The build for this device (main.js picks it), and the others beside it. -->
         <div class="split" id="get">
@@ -82,6 +93,12 @@
         <a class="btn ghost" href="#install" data-install-link>How to install</a>
         <a class="btn ghost" href="https://github.com/ZiggyGameDev/stream-thing-releases" rel="noopener"><svg class="ic gh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.08-.12-.3-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.75.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>GitHub</a>
       </div>
+      <!-- The other way onto a TV: Downloader and its code (the TV steps in Installing). -->
+      <a class="or-downloader" href="#install" data-install-tab="tv" data-reveal style="--d:.42s">
+        <span class="or">or</span>
+        <span>On a TV? Open <b>Downloader</b> and type <code class="dl-code">6594945</code></span>
+        <span class="how">How <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+      </a>
       <div class="stage" data-reveal style="--d:.45s">
         <div class="screen">
           <img src="assets/shots/desktop-home.webp" width="1500" height="950" alt="DizziTV on Windows: a featured show across the top, then what you're watching and genres">
@@ -181,7 +198,7 @@
     <p class="copy">© 2026 DizziTV. DizziTV doesn't host or provide any media.</p>
   </footer>
 
-  <script src="main.js?v=26"></script>
-  <script src="intro.js?v=26"></script>
+  <script src="main.js?v=28"></script>
+  <script src="intro.js?v=28"></script>
 </body>
 </html>

@@ -174,6 +174,10 @@
     };
     for (const a of document.querySelectorAll('[data-download="auto"]')) a.addEventListener('click', () => a.href && after(direct));
     for (const a of document.querySelectorAll('[data-pick]')) a.addEventListener('click', () => after(a.dataset.pick));
+    // "or on a TV, Downloader…": to the TV steps (Fire TV's on a Fire TV).
+    for (const a of document.querySelectorAll('[data-install-tab]')) {
+      a.addEventListener('click', () => show(a.dataset.installTab === 'tv' && /AFT/.test(navigator.userAgent) ? 'fire' : a.dataset.installTab));
+    }
   }
 
 })();

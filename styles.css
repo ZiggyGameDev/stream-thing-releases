@@ -269,6 +269,19 @@ html.intro .bar .brand { visibility: hidden; }
 @keyframes land { 0% { transform: scale(1.14); } 55% { transform: scale(.97); } 100% { transform: none; } }
 @keyframes pulse { 50% { transform: scale(1.06); } }
 
+/* Under the download button: the other way onto a TV, Downloader and its code. */
+.or-downloader {
+  display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 18px; padding: 10px 12px 10px 10px;
+  border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .03); color: var(--muted); text-decoration: none;
+  font-size: .98rem; transition: background .25s, border-color .25s;
+}
+.or-downloader:hover { background: rgba(255, 255, 255, .07); border-color: rgba(255, 138, 0, .35); }
+.or-downloader b { color: var(--text); }
+.or-downloader .or { padding: 3px 10px; border-radius: 999px; background: rgba(255, 255, 255, .08); color: var(--text); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; }
+.or-downloader .dl-code { font-size: 1.05em; }
+.or-downloader .how { display: inline-flex; align-items: center; gap: 4px; color: var(--orange); font-weight: 700; }
+.on-tv .or-downloader:focus { border-radius: 999px; }
+
 /* ---- installing: a device's steps, numbered, and a calm word about the warnings ---- */
 .install { padding-top: 140px; padding-bottom: 120px; text-align: center; }
 .install-tabs { margin-top: 30px; }
@@ -343,6 +356,8 @@ html.intro .bar .brand { visibility: hidden; }
   .tour-tabs button { flex: 1 1 40%; justify-content: center; padding: 10px 12px; font-size: .88rem; }
   .tour-window { border-radius: 12px; }
   .tour-chrome { padding: 9px 12px; }
+  .or-downloader { border-radius: 16px; gap: 8px 10px; padding: 12px 14px; font-size: .93rem; }
+  .or-downloader .or { display: none; }
   .steps li { padding: 16px 16px 16px 60px; }
   .steps li::before { left: 14px; width: 30px; height: 30px; }
   .calm { padding: 16px; }

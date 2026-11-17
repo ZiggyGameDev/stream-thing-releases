@@ -11,10 +11,10 @@
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preload" href="assets/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=24">
+  <link rel="stylesheet" href="assets/fonts/name-fonts.css?v=26">
   <!-- ?v: raise it (here and on the scripts below) whenever a file changes, so no browser
        pairs this page with a copy it kept from before. -->
-  <link rel="stylesheet" href="styles.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=26">
   <!-- The start-up animation plays when the site is opened, not when coming back to this page
        from one of its own (the terms, say), and never with reduced motion. Decided here,
        before anything is drawn, so the page never flashes up first. Nothing is stored. -->
@@ -121,6 +121,7 @@
     <!-- Installing: the steps for each kind of device, opened on this one (main.js), and the
          warnings Android shows on the way, named before they appear so they don't alarm. -->
     <section class="install" id="install">
+      <p class="started" data-started role="status" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Your download has started. Here's what comes next.</p>
       <h2 data-reveal>Installing is <span class="grad">a minute's work.</span></h2>
       <p class="sub" data-reveal style="--d:.08s">DizziTV isn't in the Play Store, so Android checks it a little more carefully than usual. Here's every screen you'll see, so nothing's a surprise.</p>
       <div class="tour-tabs install-tabs" role="tablist" aria-label="Your device" data-reveal style="--d:.12s">
@@ -144,7 +145,7 @@
         <ol class="steps">
           <li><b>Get Downloader.</b> TVs rarely have a browser, so install the free <em>Downloader</em> app (by AFTVnews) from Google Play on the TV.</li>
           <li><b>Let Downloader install apps.</b> Settings → Apps → Security &amp; restrictions → <em>Unknown sources</em> → switch on <em>Downloader</em>. Can't see it? On Google TV, go to Settings → System → About and press OK on <em>Android TV OS build</em> seven times first, then try again.</li>
-          <li><b>Type the address.</b> Open Downloader and type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code><span data-dl-code hidden>, or just the code <code class="addr"></code></span>, then Go. The download starts on its own.</li>
+          <li><b>Type the code <code class="dl-code">6594945</code></b> Open Downloader, type that number in the address box (the <em>#</em> key brings up numbers), then Go. The download starts on its own. Codes not working? Type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code> instead.</li>
           <li><b>Install, then open.</b> Choose <em>Install</em>, then <em>Open</em>. If Play Protect asks, choose <em>Scan app</em> or <em>Install anyway</em>. Afterwards you can switch Downloader off under Unknown sources again.</li>
         </ol>
       </div>
@@ -154,7 +155,7 @@
         <ol class="steps">
           <li><b>Get Downloader.</b> Search for <em>Downloader</em> on the Fire TV home screen and install it (free, by AFTVnews).</li>
           <li><b>Let Downloader install apps.</b> Settings → My Fire TV → Developer options → <em>Install unknown apps</em> → <em>Downloader: On</em>. No Developer options? Go to My Fire TV → About and press OK on your device's name seven times first.</li>
-          <li><b>Type the address.</b> In Downloader, type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code><span data-dl-code hidden>, or the code <code class="addr"></code></span>, then Go.</li>
+          <li><b>Type the code <code class="dl-code">6594945</code></b> In Downloader, type that number in the address box, then Go. Codes not working? Type <code class="addr">ziggygamedev.github.io/stream-thing-releases/tv</code> instead.</li>
           <li><b>Install, then open.</b> Choose <em>Install</em>, then <em>Open</em>. Downloader offers to delete the file afterwards: say yes, it isn't needed any more.</li>
         </ol>
       </div>
@@ -180,7 +181,7 @@
     <p class="copy">© 2026 DizziTV. DizziTV doesn't host or provide any media.</p>
   </footer>
 
-  <script src="main.js?v=24"></script>
-  <script src="intro.js?v=24"></script>
+  <script src="main.js?v=26"></script>
+  <script src="intro.js?v=26"></script>
 </body>
 </html>

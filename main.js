@@ -20,6 +20,9 @@
 
   /** Which build suits this device, or null when there isn't one (iPhone, Mac, Linux). */
   function detect() {
+    // ?device=tv (or android, windows, samsung, lg): try the page as that device would see it.
+    const asked = new URLSearchParams(location.search).get('device');
+    if (asked && FILES[asked]) return asked;
     const ua = navigator.userAgent;
     if (/Tizen/i.test(ua)) return 'samsung';
     if (/Web0S|webOS/i.test(ua)) return 'lg';
@@ -131,15 +134,6 @@
 
   // ---- installing: the steps for each kind of device ----
   // Opened on this device's (a Fire TV says AFT in its name), the others a tab away.
-  // Downloader's short code, once there is one (go.aftvnews.com turns the /tv address into a
-  // number that's quicker to type with a remote): shown beside the address when set.
-  const DOWNLOADER_CODE = '';
-  if (DOWNLOADER_CODE) {
-    for (const s of document.querySelectorAll('[data-dl-code]')) {
-      s.querySelector('code').textContent = DOWNLOADER_CODE;
-      s.hidden = false;
-    }
-  }
   const install = document.querySelector('.install');
   if (install) {
     const tabs = [...install.querySelectorAll('[role="tab"]')];
@@ -162,6 +156,24 @@
       const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
       show(next.dataset.kind, true);
     });
+
+    // Downloading an Android build: the page goes on to how to install it, on that device's
+    // tab, with a word that the download has started. The download itself carries on (the
+    // file comes as an attachment, so the page stays).
+    const started = install.querySelector('[data-started]');
+    const after = (kind) => {
+      if (kind !== 'android' && kind !== 'tv') return;
+      show(kind === 'tv' && /AFT/.test(navigator.userAgent) ? 'fire' : kind);
+      if (started) started.hidden = false;
+      setTimeout(() => {
+        install.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+        // On a TV the remote carries on from the steps' tab.
+        const tab = install.querySelector('[aria-selected="true"]');
+        if (tab) setTimeout(() => tab.focus({ preventScroll: true }), 700);
+      }, 350);
+    };
+    for (const a of document.querySelectorAll('[data-download="auto"]')) a.addEventListener('click', () => a.href && after(direct));
+    for (const a of document.querySelectorAll('[data-pick]')) a.addEventListener('click', () => after(a.dataset.pick));
   }
 
 })();

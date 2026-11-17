@@ -272,6 +272,15 @@ html.intro .bar .brand { visibility: hidden; }
 /* ---- installing: a device's steps, numbered, and a calm word about the warnings ---- */
 .install { padding-top: 140px; padding-bottom: 120px; text-align: center; }
 .install-tabs { margin-top: 30px; }
+/* After a download button: the download has started, and this is what comes next. */
+.started {
+  display: inline-flex; align-items: center; gap: 10px; margin: 0 auto 22px; padding: 10px 18px; border-radius: 999px;
+  background: rgba(40, 200, 120, .1); border: 1px solid rgba(40, 200, 120, .3); color: #8ef0b4; font-weight: 700;
+  animation: started-in .6s var(--ease);
+}
+.started[hidden] { display: none; }
+.started .ic { stroke: #4ade80; }
+@keyframes started-in { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
 .install-panel { max-width: 760px; margin: 30px auto 0; text-align: left; }
 .steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 12px; }
 .steps li {
@@ -289,6 +298,11 @@ html.intro .bar .brand { visibility: hidden; }
 .addr {
   display: inline-block; padding: 1px 8px; border-radius: 6px; background: rgba(255, 138, 0, .12); color: var(--orange);
   font: 700 .95em ui-monospace, 'Cascadia Mono', Consolas, monospace; word-break: break-all;
+}
+/* Downloader's code (AFTVnews' shortener, aftv.news/6594945: the latest Android TV build). */
+.dl-code {
+  display: inline-block; margin-left: 4px; padding: 2px 12px; border-radius: 8px; background: var(--grad); color: #1a0b08;
+  font: 800 1.15em ui-monospace, 'Cascadia Mono', Consolas, monospace; letter-spacing: .08em; vertical-align: baseline;
 }
 .install .note, .install .here { margin: 0 0 14px; padding: 12px 16px; border-radius: 12px; font-size: .95rem; color: var(--muted); background: rgba(255, 255, 255, .04); }
 .install .here { color: var(--text); background: rgba(255, 138, 0, .1); }
